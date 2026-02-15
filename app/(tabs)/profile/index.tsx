@@ -6,46 +6,35 @@ import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
 import { LogOut, User, Mail, Shield, Bell } from 'lucide-react-native';
+import { StyleSheet } from 'react-native';
 
 export default function ProfileScreen() {
   const primary = useColor('primary');
   const red = useColor('red');
   const muted = useColor('muted');
 
+  const styles = createStyles(muted, primary, red);
+
   return (
     <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{
-        padding: 24,
-        paddingTop: 120,
-        gap: 24,
-      }}
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
     >
-      <View style={{ alignItems: 'center', marginBottom: 8 }}>
-        <View
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
-            backgroundColor: muted,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 16,
-          }}
-        >
+      <View style={styles.header}>
+        <View style={styles.avatarContainer}>
           <Icon name={User} size={48} color={primary} />
         </View>
-        <Text variant="title" style={{ fontWeight: '700' }}>
+        <Text variant="title" style={styles.profileName}>
           John Doe
         </Text>
         <Text variant="caption">Premium Member</Text>
       </View>
 
-      <View style={{ gap: 12 }}>
-        <Text variant="body" style={{ fontWeight: '600', marginLeft: 4 }}>
+      <View style={styles.section}>
+        <Text variant="body" style={styles.sectionHeader}>
           Account Information
         </Text>
-        <Card style={{ gap: 16 }}>
+        <Card style={styles.card}>
           <ProfileItem
             icon={Mail}
             label="Email"
@@ -69,15 +58,11 @@ export default function ProfileScreen() {
 
       <Button
         variant="ghost"
-        style={{
-          marginTop: 12,
-          borderColor: red,
-          borderWidth: 1,
-        }}
+        style={styles.logoutButton}
         onPress={() => console.log('Logout pressed')}
       >
         <Icon name={LogOut} size={20} color={red} />
-        <Text style={{ color: red, fontWeight: '600', marginLeft: 8 }}>
+        <Text style={styles.logoutText}>
           Log Out
         </Text>
       </Button>
@@ -96,28 +81,93 @@ function ProfileItem({
   value: string;
   color: string;
 }) {
+  const styles = itemStyles(color);
+
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-      <View
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: 18,
-          backgroundColor: color + '20',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+    <View style={styles.container}>
+      <View style={styles.iconContainer}>
         <Icon name={icon} size={20} color={color} />
       </View>
-      <View style={{ flex: 1 }}>
-        <Text variant="caption" style={{ opacity: 0.7 }}>
+      <View style={styles.textContainer}>
+        <Text variant="caption" style={styles.label}>
           {label}
         </Text>
-        <Text variant="body" style={{ fontWeight: '500' }}>
+        <Text variant="body" style={styles.value}>
           {value}
         </Text>
       </View>
     </View>
   );
 }
+
+const createStyles = (muted: string, primary: string, red: string) => StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    padding: 24,
+    paddingTop: 120,
+    gap: 24,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  avatarContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: muted,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  profileName: {
+    fontWeight: '700',
+  },
+  section: {
+    gap: 12,
+  },
+  sectionHeader: {
+    fontWeight: '600',
+    marginLeft: 4,
+  },
+  card: {
+    gap: 16,
+  },
+  logoutButton: {
+    marginTop: 12,
+    borderColor: red,
+    borderWidth: 1,
+  },
+  logoutText: {
+    color: red,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+});
+
+const itemStyles = (color: string) => StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: color + '20',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+  },
+  label: {
+    opacity: 0.7,
+  },
+  value: {
+    fontWeight: '500',
+  },
+});

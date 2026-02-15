@@ -1,31 +1,25 @@
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { useColor } from "@/hooks/useColor";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import MaterialIcons from "@expo/vector-icons/Feather";
 import {
-  Badge,
   Icon,
   Label,
   NativeTabs,
   VectorIcon,
 } from "expo-router/unstable-native-tabs";
+import MaterialIcons from "@expo/vector-icons/Feather";
 
 export default function TabsLayout() {
   const red = useColor("red");
   const primary = useColor("primary");
   const foreground = useColor("foreground");
 
+  const styles = createStyles(primary, foreground);
+
   return (
     <NativeTabs
       minimizeBehavior="onScrollDown"
-      labelStyle={{
-        default: { color: primary },
-        selected: { color: foreground },
-      }}
-      iconColor={{
-        default: primary,
-        selected: foreground,
-      }}
+      labelStyle={styles.labelStyle}
+      iconColor={styles.iconColor}
       badgeBackgroundColor={red}
       labelVisibilityMode="labeled"
       disableTransparentOnScrollEdge={true}
@@ -72,3 +66,14 @@ export default function TabsLayout() {
     </NativeTabs>
   );
 }
+
+const createStyles = (primary: string, foreground: string) => ({
+  labelStyle: {
+    default: { color: primary },
+    selected: { color: foreground },
+  },
+  iconColor: {
+    default: primary,
+    selected: foreground,
+  }
+});

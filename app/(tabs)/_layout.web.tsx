@@ -7,13 +7,13 @@ import { Home, Calendar, Key, CircleUser } from 'lucide-react-native';
 export default function WebTabsLayout() {
   const primary = useColor('primary');
 
+  const screenOptions = {
+    headerShown: false,
+    tabBarActiveTintColor: primary,
+  };
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: primary,
-      }}
-    >
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
         name='(home)'
         options={{
