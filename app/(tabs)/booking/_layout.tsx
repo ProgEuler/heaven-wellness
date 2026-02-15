@@ -33,14 +33,14 @@ function SearchLayoutContent() {
       <Stack.Screen
         name='index'
         options={{
-          title: 'Search',
+          title: 'Booking',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <Text variant='heading'>Search</Text>
+              <Text variant='heading'>Booking</Text>
             ) : undefined,
           headerSearchBarOptions: {
             placement: 'automatic',
-            placeholder: 'Search',
+            placeholder: 'Search bookings...',
             onChangeText: (event) => {
               setSearchText(event.nativeEvent.text);
             },

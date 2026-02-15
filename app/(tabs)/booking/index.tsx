@@ -3,7 +3,7 @@ import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useSearch } from '@/providers/search-context';
 
-export default function SearchScreen() {
+export default function BookingScreen() {
   const { searchText } = useSearch();
 
   return (
@@ -11,6 +11,7 @@ export default function SearchScreen() {
       style={{
         flex: 1,
         padding: 24,
+        paddingTop: 120, // Adjust for large title
       }}
     >
       <View style={{ gap: 16 }}>
@@ -20,7 +21,7 @@ export default function SearchScreen() {
             textAlign: 'center',
           }}
         >
-          BNA Search Screen
+          My Bookings
         </Text>
 
         {searchText ? (

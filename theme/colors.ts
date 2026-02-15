@@ -116,11 +116,11 @@ export const darkColors = {
   popoverForeground: '#FFFFFF',
 
   // Primary colors
-  primary: '#e4e4e7',
+  primary: '#8B7355',
   primaryForeground: '#18181b',
 
   // Secondary colors
-  secondary: '#1C1C1E',
+  secondary: '#E8DFD5',
   secondaryForeground: '#FFFFFF',
 
   // Muted colors

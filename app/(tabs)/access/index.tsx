@@ -7,7 +7,7 @@ import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
 import { Code, Eye, Palette, Settings } from 'lucide-react-native';
 
-export default function SettingsScreen() {
+export default function AccessScreen() {
   const card = useColor('card');
   const border = useColor('border');
   const primary = useColor('primary');
@@ -38,7 +38,7 @@ export default function SettingsScreen() {
             fontWeight: '700',
           }}
         >
-          BNA UI Features
+          Access Control
         </Text>
 
         <View

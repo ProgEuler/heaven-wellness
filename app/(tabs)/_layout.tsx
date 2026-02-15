@@ -40,33 +40,29 @@ export default function TabsLayout() {
         <Label>Home</Label>
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="settings">
+      <NativeTabs.Trigger name="booking">
         {Platform.select({
-          ios: <Icon sf="gear" />,
+          ios: <Icon sf="calendar" />,
           android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="settings" />} />
+            <Icon src={<VectorIcon family={MaterialIcons} name="calendar" />} />
           ),
         })}
-        <Label>Settings</Label>
-        <Badge>1</Badge>
+        <Label>Booking</Label>
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger
-        name="search"
-        role={isLiquidGlassAvailable() ? "search" : undefined}
-      >
+      <NativeTabs.Trigger name="access">
         {Platform.select({
-          ios: <Icon sf="magnifyingglass" />,
+          ios: <Icon sf="key.fill" />,
           android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="search" />} />
+            <Icon src={<VectorIcon family={MaterialIcons} name="key" />} />
           ),
         })}
-        <Label>Search</Label>
+        <Label>Access</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="profile">
         {Platform.select({
-          ios: <Icon sf="person" />,
+          ios: <Icon sf="person.fill" />,
           android: (
             <Icon src={<VectorIcon family={MaterialIcons} name="user" />} />
           ),
