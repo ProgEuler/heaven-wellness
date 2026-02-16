@@ -1,5 +1,6 @@
 import { AuthLayout } from '@/components/auth-layout';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
@@ -13,6 +14,7 @@ import { StyleSheet, Pressable } from 'react-native';
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
   const primary = useColor('primary');
   const textMuted = useColor('textMuted');
   const brownGold = '#9B7C56';
@@ -45,13 +47,14 @@ export default function LoginScreen() {
         />
 
         <View style={styles.row}>
-          <Pressable style={styles.checkboxContainer}>
-            <View style={[styles.checkbox, { borderColor: primary }]} />
-            <Text variant="caption">Remember me</Text>
-          </Pressable>
+            <Checkbox
+               checked={checked}
+               onCheckedChange={setChecked}
+               label='Remember me'
+            />
           <Link href="/forgot-password" asChild>
             <Pressable>
-              <Text style={{ color: Colors.dark.primary }}>Forgot password?</Text>
+              <Text style={{ color: Colors.light.primary }}>Forgot password?</Text>
             </Pressable>
           </Link>
         </View>
@@ -105,18 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: -4,
-    marginBottom: 24
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderRadius: 4,
-    borderWidth: 1,
+    marginBottom: 18
   },
   dividerContainer: {
     flexDirection: 'row',
@@ -151,6 +143,6 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 16,
+    marginBottom: 24
   },
 });

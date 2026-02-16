@@ -1,7 +1,7 @@
 import { Icon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import { useColor } from "@/hooks/useColor";
-import { Colors } from "@/theme/colors";
+import { Colors, Fonts } from "@/theme/colors";
 import { BORDER_RADIUS, CORNERS, FONT_SIZE, HEIGHT } from "@/theme/globals";
 import { LucideProps } from "lucide-react-native";
 import React, { forwardRef, ReactElement, useState } from "react";
@@ -148,6 +148,8 @@ export const Input = forwardRef<TextInput, InputProps>(
                   marginBottom: 6,
                   marginLeft: 4,
                   color: error ? danger : "black",
+                  fontSize: 16,
+                  fontFamily: Fonts.serif
                 },
                 labelStyle,
               ]}

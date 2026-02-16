@@ -177,7 +177,7 @@ export const InputOTP = forwardRef<InputOTPRef, InputOTPProps>(
               {
                 width: 58,
                 height: 58,
-                borderRadius: CORNERS,
+                borderRadius: 12,
                 borderWidth: 1,
                 borderColor: error
                   ? danger
@@ -186,7 +186,7 @@ export const InputOTP = forwardRef<InputOTPRef, InputOTPProps>(
                   : hasValue
                   ? borderColor
                   : borderColor,
-                backgroundColor: disabled ? muted + '20' : cardColor,
+               //  backgroundColor: disabled ? muted + '20' : cardColor,
                 justifyContent: 'center',
                 alignItems: 'center',
                 opacity: disabled ? 0.6 : 1,

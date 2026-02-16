@@ -1,26 +1,32 @@
-import { Text } from '@/components/ui/text';
-import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
-import { Colors, Fonts } from '@/theme/colors';
-import { ImageBackground } from 'react-native';
-import { StyleSheet, Platform, ScrollView, Dimensions } from 'react-native';
+import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
+import { useColor } from "@/hooks/useColor";
+import { Colors, Fonts } from "@/theme/colors";
+import { ImageBackground } from "react-native";
+import { StyleSheet, Platform, ScrollView, Dimensions } from "react-native";
+import { AvoidKeyboard } from "./ui/avoid-keyboard";
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 interface AuthLayoutProps {
   children: React.ReactNode;
   title: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   showOverlay?: boolean;
 }
 
-export function AuthLayout({ children, title, subtitle, showOverlay = true }: AuthLayoutProps) {
-  const background = useColor('background');
+export function AuthLayout({
+  children,
+  title,
+  subtitle,
+  showOverlay = true,
+}: AuthLayoutProps) {
+  const background = useColor("background");
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../assets/images/auth-bg.png')}
+        source={require("../assets/images/auth-bg.png")}
         style={[styles.bgImage, { height: SCREEN_HEIGHT }]} // Background should fill screen for proper layering
       >
         {/* Only show overlay if requested. Opaque cards hide it anyway, but this is cleaner */}
@@ -32,7 +38,8 @@ export function AuthLayout({ children, title, subtitle, showOverlay = true }: Au
               Welcome to the Circle of Stillness.
             </Text>
             <Text style={styles.welcomeSubtitle}>
-              Membership unlocks exclusive arrangements, priority reservations, and personalized wellness concierge services.
+              Membership unlocks exclusive arrangements, priority reservations,
+              and personalized wellness concierge services.
             </Text>
             <View style={styles.separator} />
           </View>
@@ -46,9 +53,16 @@ export function AuthLayout({ children, title, subtitle, showOverlay = true }: Au
             <View style={[styles.card, { backgroundColor: background }]}>
               <View style={styles.cardHeader}>
                 <Text style={styles.cardTitle}>{title}</Text>
-                {subtitle && <Text style={styles.cardSubtitle}>{subtitle}</Text>}
+                {subtitle && (
+                  typeof subtitle === 'string' ? (
+                    <Text style={styles.cardSubtitle}>{subtitle}</Text>
+                  ) : (
+                    subtitle
+                  )
+                )}
               </View>
               {children}
+              <AvoidKeyboard />
             </View>
           </ScrollView>
         </View>
@@ -62,34 +76,34 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bgImage: {
-    width: '100%',
-    position: 'absolute',
+    width: "100%",
+    position: "absolute",
     top: 0,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: "rgba(0,0,0,0.4)",
   },
   mainContent: {
     flex: 1,
   },
   topContent: {
-    paddingTop: Platform.OS === 'ios' ? 80 : 60,
+    paddingTop: Platform.OS === "ios" ? 80 : 60,
     paddingHorizontal: 24,
     gap: 26,
   },
   welcomeTitle: {
-    color: 'white',
+    color: "white",
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: "700",
     fontFamily: Fonts.serif,
-    maxWidth: '100%',
+    maxWidth: "100%",
   },
   welcomeSubtitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     lineHeight: 20,
-    maxWidth: '86%',
+    maxWidth: "86%",
   },
   separator: {
     width: 120,
@@ -101,7 +115,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   card: {
     borderTopLeftRadius: 32,
@@ -117,11 +131,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     fontFamily: Fonts.serif,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: '#71717a',
+   },
+   cardSubtitle: {
+      fontSize: 14,
+      color: "#71717a",
+      fontFamily: Fonts.serif,
   },
 });
