@@ -43,11 +43,10 @@ export default function NewPasswordScreen() {
         />
 
         <Button
-          style={styles.button}
           onPress={() => router.replace('/login')}
         >
-          <Text style={styles.buttonText}>Set New Password</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Set New Password</Text>
+          <ArrowRight size={18} />
         </Button>
 
         <View style={styles.footer}>

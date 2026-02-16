@@ -21,17 +21,18 @@ export default function LoginScreen() {
     <AuthLayout
       title="Welcome Back"
       subtitle="Sign in to continue your journey"
+      showOverlay={false}
     >
       <View style={styles.form}>
-         <Text>Email Address</Text>
         <Input
           placeholder="your@email.com"
           icon={Mail}
           variant="outline"
+          label='Email'
         />
 
-         <Text>Password</Text>
         <Input
+          label='Password'
           placeholder="••••••••"
           icon={Lock}
           secureTextEntry={!showPassword}
@@ -58,8 +59,8 @@ export default function LoginScreen() {
         <Button
           onPress={() => router.replace('/(tabs)/(home)')}
         >
-          <Text style={styles.loginButtonText}>Log In</Text>
-          <ArrowRight size={18} color="black" />
+          <Text>Log In</Text>
+          <ArrowRight size={18} />
         </Button>
 
         <View style={styles.dividerContainer}>
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: -4,
+    marginBottom: 24
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -115,11 +117,6 @@ const styles = StyleSheet.create({
     height: 18,
     borderRadius: 4,
     borderWidth: 1,
-  },
-  loginButtonText: {
-    color: 'black',
-    fontWeight: '700',
-    fontSize: 16,
   },
   dividerContainer: {
     flexDirection: 'row',

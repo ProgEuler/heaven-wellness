@@ -1,4 +1,3 @@
-import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
@@ -12,18 +11,22 @@ interface AuthLayoutProps {
   children: React.ReactNode;
   title: string;
   subtitle?: string;
+  showOverlay?: boolean;
 }
 
-export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
+export function AuthLayout({ children, title, subtitle, showOverlay = true }: AuthLayoutProps) {
   const background = useColor('background');
 
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require('../assets/images/auth-bg.png')}
-        style={styles.bgImage}
+        style={[styles.bgImage, { height: SCREEN_HEIGHT }]} // Background should fill screen for proper layering
       >
-        <View style={styles.overlay}>
+        {/* Only show overlay if requested. Opaque cards hide it anyway, but this is cleaner */}
+        {showOverlay && <View style={styles.overlay} />}
+
+        <View style={styles.mainContent}>
           <View style={styles.topContent}>
             <Text style={styles.welcomeTitle}>
               Welcome to the Circle of Stillness.
@@ -31,7 +34,7 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
             <Text style={styles.welcomeSubtitle}>
               Membership unlocks exclusive arrangements, priority reservations, and personalized wellness concierge services.
             </Text>
-            <View style={{ width: 120, height: 1.5, backgroundColor: Colors.dark.secondary}} />
+            <View style={styles.separator} />
           </View>
 
           <ScrollView
@@ -59,15 +62,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bgImage: {
-    flex: 1,
     width: '100%',
-    height: SCREEN_HEIGHT * 0.8,
     position: 'absolute',
     top: 0,
   },
   overlay: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  mainContent: {
+    flex: 1,
   },
   topContent: {
     paddingTop: Platform.OS === 'ios' ? 80 : 60,
@@ -79,13 +83,18 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
     fontFamily: Fonts.serif,
-    maxWidth: '100%'
+    maxWidth: '100%',
   },
   welcomeSubtitle: {
     color: '#fff',
     fontSize: 14,
     lineHeight: 20,
     maxWidth: '86%',
+  },
+  separator: {
+    width: 120,
+    height: 1.5,
+    backgroundColor: Colors.dark.secondary,
   },
   scrollView: {
     flex: 1,
@@ -99,8 +108,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 32,
     padding: 24,
     paddingTop: 32,
-    marginTop: SCREEN_HEIGHT * 0.25,
-    minHeight: SCREEN_HEIGHT * 0.55,
+    marginTop: SCREEN_HEIGHT * 0.05,
+    // Note: We avoid paddingBottom here to let safer area handling or child margins handle it
   },
   cardHeader: {
     marginBottom: 24,

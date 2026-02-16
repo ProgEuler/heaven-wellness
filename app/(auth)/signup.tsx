@@ -19,6 +19,7 @@ export default function SignupScreen() {
     <AuthLayout
       title="Create Account"
       subtitle="Begin your wellness journey"
+      showOverlay={false}
     >
       <View style={styles.form}>
         <Input
@@ -49,11 +50,10 @@ export default function SignupScreen() {
         />
 
         <Button
-          style={styles.signupButton}
           onPress={() => router.replace('/language')}
         >
-          <Text style={styles.signupButtonText}>Sign Up</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Sign Up</Text>
+          <ArrowRight size={18} />
         </Button>
 
         <View style={styles.dividerContainer}>

@@ -40,11 +40,11 @@ export const lightColors = {
   popoverForeground: '#000000',
 
   // Primary colors
-  primary: '#18181b',
+  primary: '#CFB9A3',
   primaryForeground: '#FFFFFF',
 
   // Secondary colors
-  secondary: '#F2F2F7',
+  secondary: '#E8DFD5',
   secondaryForeground: '#18181b',
 
   // Muted colors

@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
 import { Link, router } from 'expo-router';
 import { Mail, ArrowRight } from 'lucide-react-native';
 import React from 'react';
@@ -26,11 +25,10 @@ export default function ForgotPasswordScreen() {
         />
 
         <Button
-          style={styles.button}
           onPress={() => router.push('/verify-code')}
         >
-          <Text style={styles.buttonText}>Send OTP</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Send OTP</Text>
+          <ArrowRight size={18} />
         </Button>
 
         <View style={styles.footer}>

@@ -1,9 +1,10 @@
-import { Icon } from '@/components/ui/icon';
-import { Text } from '@/components/ui/text';
-import { useColor } from '@/hooks/useColor';
-import { BORDER_RADIUS, CORNERS, FONT_SIZE, HEIGHT } from '@/theme/globals';
-import { LucideProps } from 'lucide-react-native';
-import React, { forwardRef, ReactElement, useState } from 'react';
+import { Icon } from "@/components/ui/icon";
+import { Text } from "@/components/ui/text";
+import { useColor } from "@/hooks/useColor";
+import { Colors } from "@/theme/colors";
+import { BORDER_RADIUS, CORNERS, FONT_SIZE, HEIGHT } from "@/theme/globals";
+import { LucideProps } from "lucide-react-native";
+import React, { forwardRef, ReactElement, useState } from "react";
 import {
   Pressable,
   TextInput,
@@ -11,9 +12,9 @@ import {
   TextStyle,
   View,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
-export interface InputProps extends Omit<TextInputProps, 'style'> {
+export interface InputProps extends Omit<TextInputProps, "style"> {
   label?: string;
   error?: string;
   icon?: React.ComponentType<LucideProps>;
@@ -22,9 +23,9 @@ export interface InputProps extends Omit<TextInputProps, 'style'> {
   inputStyle?: TextStyle;
   labelStyle?: TextStyle;
   errorStyle?: TextStyle;
-  variant?: 'filled' | 'outline';
+  variant?: "filled" | "outline";
   disabled?: boolean;
-  type?: 'input' | 'textarea';
+  type?: "input" | "textarea";
   placeholder?: string;
   rows?: number; // Only used when type="textarea"
 }
@@ -40,28 +41,28 @@ export const Input = forwardRef<TextInput, InputProps>(
       inputStyle,
       labelStyle,
       errorStyle,
-      variant = 'filled',
+      variant = "filled",
       disabled = false,
-      type = 'input',
+      type = "input",
       rows = 4,
       onFocus,
       onBlur,
       placeholder,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isFocused, setIsFocused] = useState(false);
 
     // Theme colors
-    const cardColor = useColor('card');
-    const textColor = useColor('text');
-    const muted = useColor('textMuted');
-    const borderColor = useColor('border');
-    const primary = useColor('primary');
-    const danger = useColor('red');
+    const cardColor = useColor("card");
+    const textColor = useColor("text");
+    const muted = useColor("textMuted");
+    const borderColor = useColor("border");
+    const primary = useColor("primary");
+    const danger = useColor("red");
 
-    const isTextarea = type === 'textarea';
+    const isTextarea = type === "textarea";
 
     // Calculate height based on type
     const getHeight = () => {
@@ -75,28 +76,32 @@ export const Input = forwardRef<TextInput, InputProps>(
     const getVariantStyle = (): ViewStyle => {
       const baseStyle: ViewStyle = {
         borderRadius: isTextarea ? BORDER_RADIUS : CORNERS,
-        flexDirection: isTextarea ? 'column' : 'row',
-        alignItems: isTextarea ? 'stretch' : 'center',
+        flexDirection: isTextarea ? "column" : "row",
+        alignItems: isTextarea ? "stretch" : "center",
         minHeight: getHeight(),
         paddingHorizontal: 16,
         paddingVertical: isTextarea ? 12 : 0,
       };
 
       switch (variant) {
-        case 'outline':
+        case "outline":
           return {
             ...baseStyle,
             borderWidth: 1,
-            borderColor: error ? danger : isFocused ? primary : borderColor,
-            backgroundColor: 'transparent',
+            borderColor: error
+              ? danger
+              : isFocused
+                ? Colors.dark.primary
+                : borderColor,
+            backgroundColor: "transparent",
           };
-        case 'filled':
+        case "filled":
         default:
           return {
             ...baseStyle,
             borderWidth: 1,
             borderColor: error ? danger : cardColor,
-            backgroundColor: disabled ? muted + '20' : cardColor,
+            backgroundColor: disabled ? muted + "20" : cardColor,
           };
       }
     };
@@ -107,7 +112,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       lineHeight: isTextarea ? 20 : undefined,
       color: disabled ? muted : error ? danger : textColor,
       paddingVertical: 0, // Remove default padding
-      textAlignVertical: isTextarea ? 'top' : 'center',
+      textAlignVertical: isTextarea ? "top" : "center",
     });
 
     const handleFocus = (e: any) => {
@@ -125,7 +130,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       if (!rightComponent) return null;
 
       // If it's a function, call it. Otherwise, render directly
-      return typeof rightComponent === 'function'
+      return typeof rightComponent === "function"
         ? rightComponent()
         : rightComponent;
     };
@@ -133,129 +138,52 @@ export const Input = forwardRef<TextInput, InputProps>(
     const renderInputContent = () => (
       <View style={containerStyle}>
         {/* Input Container */}
-        <Pressable
-          style={[getVariantStyle(), disabled && { opacity: 0.6 }]}
-          onPress={() => {
-            if (!disabled && ref && 'current' in ref && ref.current) {
-              ref.current.focus();
-            }
-          }}
-          disabled={disabled}
-        >
-          {isTextarea ? (
-            // Textarea Layout (Column)
-            <>
-              {/* Header section with icon, label, and right component */}
-              {(icon || label || rightComponent) && (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 8,
-                    gap: 8,
-                  }}
-                >
-                  {/* Left section - Icon + Label */}
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 8,
-                    }}
-                    pointerEvents='none'
-                  >
-                    {icon && (
-                      <Icon
-                        name={icon}
-                        size={16}
-                        color={error ? danger : muted}
-                      />
-                    )}
-                    {label && (
-                      <Text
-                        variant='caption'
-                        numberOfLines={1}
-                        ellipsizeMode='tail'
-                        style={[
-                          {
-                            color: error ? danger : muted,
-                          },
-                          labelStyle,
-                        ]}
-                        pointerEvents='none'
-                      >
-                        {label}
-                      </Text>
-                    )}
-                  </View>
+        <View style={containerStyle}>
+          {/* Label Above */}
+          {label && (
+            <Text
+              variant="caption"
+              style={[
+                {
+                  marginBottom: 6,
+                  marginLeft: 4,
+                  color: error ? danger : "black",
+                },
+                labelStyle,
+              ]}
+            >
+              {label}
+            </Text>
+          )}
 
-                  {/* Right Component */}
-                  {renderRightComponent()}
-                </View>
-              )}
-
-              {/* TextInput section */}
-              <TextInput
-                ref={ref}
-                multiline
-                numberOfLines={rows}
-                style={[getInputStyle(), inputStyle]}
-                placeholderTextColor={error ? danger + '99' : muted}
-                placeholder={placeholder || 'Type your message...'}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                editable={!disabled}
-                selectionColor={primary}
-                {...props}
-              />
-            </>
-          ) : (
-            // Input Layout (Row)
+          {/* Input Container */}
+          <Pressable
+            style={[getVariantStyle(), disabled && { opacity: 0.6 }]}
+            onPress={() => {
+              if (!disabled && ref && "current" in ref && ref.current) {
+                ref.current.focus();
+              }
+            }}
+            disabled={disabled}
+          >
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 gap: 8,
               }}
             >
-              {/* Left section - Icon + Label (fixed width to simulate grid column) */}
-              <View
-                style={{
-                  width: label ? 120 : 'auto',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-                pointerEvents='none'
-              >
-                {icon && (
-                  <Icon name={icon} size={16} color={error ? danger : muted} />
-                )}
-                {label && (
-                  <Text
-                    variant='caption'
-                    numberOfLines={1}
-                    ellipsizeMode='tail'
-                    style={[
-                      {
-                        color: error ? danger : muted,
-                      },
-                      labelStyle,
-                    ]}
-                    pointerEvents='none'
-                  >
-                    {label}
-                  </Text>
-                )}
-              </View>
+              {/* Icon */}
+              {icon && (
+                <Icon name={icon} size={16} color={error ? danger : muted} />
+              )}
 
-              {/* TextInput section - takes remaining space */}
+              {/* Input */}
               <View style={{ flex: 1 }}>
                 <TextInput
                   ref={ref}
                   style={[getInputStyle(), inputStyle]}
-                  placeholderTextColor={error ? danger + 99 : muted}
+                  placeholderTextColor={error ? danger + "99" : muted}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   editable={!disabled}
@@ -268,8 +196,8 @@ export const Input = forwardRef<TextInput, InputProps>(
               {/* Right Component */}
               {renderRightComponent()}
             </View>
-          )}
-        </Pressable>
+          </Pressable>
+        </View>
 
         {/* Error Message */}
         {error && (
@@ -291,10 +219,10 @@ export const Input = forwardRef<TextInput, InputProps>(
     );
 
     return renderInputContent();
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export interface GroupedInputProps {
   children: React.ReactNode;
@@ -309,16 +237,16 @@ export const GroupedInput = ({
   title,
   titleStyle,
 }: GroupedInputProps) => {
-  const border = useColor('border');
-  const background = useColor('card');
-  const danger = useColor('red');
+  const border = useColor("border");
+  const background = useColor("card");
+  const danger = useColor("red");
 
   const childrenArray = React.Children.toArray(children);
 
   const errors = childrenArray
     .filter(
       (child): child is ReactElement<any> =>
-        React.isValidElement(child) && !!(child.props as any).error
+        React.isValidElement(child) && !!(child.props as any).error,
     )
     .map((child) => child.props.error);
 
@@ -326,7 +254,7 @@ export const GroupedInput = ({
     <View style={containerStyle}>
       {!!title && (
         <Text
-          variant='title'
+          variant="title"
           style={[{ marginBottom: 8, marginLeft: 8 }, titleStyle]}
         >
           {title}
@@ -339,7 +267,7 @@ export const GroupedInput = ({
           borderColor: border,
           borderWidth: 1,
           borderRadius: BORDER_RADIUS,
-          overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         {childrenArray.map((child, index) => (
@@ -349,7 +277,7 @@ export const GroupedInput = ({
               minHeight: HEIGHT,
               paddingVertical: 12,
               paddingHorizontal: 16,
-              justifyContent: 'center',
+              justifyContent: "center",
               borderBottomWidth: index !== childrenArray.length - 1 ? 1 : 0,
               borderColor: border,
             }}
@@ -382,7 +310,7 @@ export const GroupedInput = ({
   return renderGroupedContent();
 };
 
-export interface GroupedInputItemProps extends Omit<TextInputProps, 'style'> {
+export interface GroupedInputItemProps extends Omit<TextInputProps, "style"> {
   label?: string;
   error?: string;
   icon?: React.ComponentType<LucideProps>;
@@ -391,7 +319,7 @@ export interface GroupedInputItemProps extends Omit<TextInputProps, 'style'> {
   labelStyle?: TextStyle;
   errorStyle?: TextStyle;
   disabled?: boolean;
-  type?: 'input' | 'textarea';
+  type?: "input" | "textarea";
   rows?: number; // Only used when type="textarea"
 }
 
@@ -406,21 +334,21 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
       labelStyle,
       errorStyle,
       disabled,
-      type = 'input',
+      type = "input",
       rows = 3,
       onFocus,
       onBlur,
       placeholder,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const text = useColor('text');
-    const muted = useColor('textMuted');
-    const primary = useColor('primary');
-    const danger = useColor('red');
+    const text = useColor("text");
+    const muted = useColor("textMuted");
+    const primary = useColor("primary");
+    const danger = useColor("red");
 
-    const isTextarea = type === 'textarea';
+    const isTextarea = type === "textarea";
 
     const handleFocus = (e: any) => {
       onFocus?.(e);
@@ -432,22 +360,22 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
 
     const renderRightComponent = () => {
       if (!rightComponent) return null;
-      return typeof rightComponent === 'function'
+      return typeof rightComponent === "function"
         ? rightComponent()
         : rightComponent;
     };
 
     const renderItemContent = () => (
       <Pressable
-        onPress={() => ref && 'current' in ref && ref.current?.focus()}
+        onPress={() => ref && "current" in ref && ref.current?.focus()}
         disabled={disabled}
         style={{ opacity: disabled ? 0.6 : 1 }}
       >
         <View
           style={{
-            flexDirection: isTextarea ? 'column' : 'row',
-            alignItems: isTextarea ? 'stretch' : 'center',
-            backgroundColor: 'transparent',
+            flexDirection: isTextarea ? "column" : "row",
+            alignItems: isTextarea ? "stretch" : "center",
+            backgroundColor: "transparent",
           }}
         >
           {isTextarea ? (
@@ -457,8 +385,8 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
               {(icon || label || rightComponent) && (
                 <View
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
+                    flexDirection: "row",
+                    alignItems: "center",
                     marginBottom: 8,
                     gap: 8,
                   }}
@@ -467,11 +395,11 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
                   <View
                     style={{
                       flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       gap: 8,
                     }}
-                    pointerEvents='none'
+                    pointerEvents="none"
                   >
                     {icon && (
                       <Icon
@@ -482,16 +410,16 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
                     )}
                     {label && (
                       <Text
-                        variant='caption'
+                        variant="caption"
                         numberOfLines={1}
-                        ellipsizeMode='tail'
+                        ellipsizeMode="tail"
                         style={[
                           {
                             color: error ? danger : muted,
                           },
                           labelStyle,
                         ]}
-                        pointerEvents='none'
+                        pointerEvents="none"
                       >
                         {label}
                       </Text>
@@ -513,14 +441,14 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
                     fontSize: FONT_SIZE,
                     lineHeight: 20,
                     color: disabled ? muted : error ? danger : text,
-                    textAlignVertical: 'top',
+                    textAlignVertical: "top",
                     paddingVertical: 0,
                     minHeight: rows * 20,
                   },
                   inputStyle,
                 ]}
-                placeholderTextColor={error ? danger + '99' : muted}
-                placeholder={placeholder || 'Type your message...'}
+                placeholderTextColor={error ? danger + "99" : muted}
+                placeholder={placeholder || "Type your message..."}
                 editable={!disabled}
                 selectionColor={primary}
                 onFocus={handleFocus}
@@ -533,36 +461,36 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
             <View
               style={{
                 flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 gap: 8,
               }}
             >
               {/* Icon & Label */}
               <View
                 style={{
-                  width: label ? 120 : 'auto',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  width: label ? 120 : "auto",
+                  flexDirection: "row",
+                  alignItems: "center",
                   gap: 8,
                 }}
-                pointerEvents='none'
+                pointerEvents="none"
               >
                 {icon && (
                   <Icon name={icon} size={16} color={error ? danger : muted} />
                 )}
                 {label && (
                   <Text
-                    variant='caption'
+                    variant="caption"
                     numberOfLines={1}
-                    ellipsizeMode='tail'
+                    ellipsizeMode="tail"
                     style={[
                       {
                         color: error ? danger : muted,
                       },
                       labelStyle,
                     ]}
-                    pointerEvents='none'
+                    pointerEvents="none"
                   >
                     {label}
                   </Text>
@@ -583,7 +511,7 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
                     inputStyle,
                   ]}
                   placeholder={placeholder}
-                  placeholderTextColor={error ? danger + '99' : muted}
+                  placeholderTextColor={error ? danger + "99" : muted}
                   editable={!disabled}
                   selectionColor={primary}
                   onFocus={handleFocus}
@@ -601,7 +529,7 @@ export const GroupedInputItem = forwardRef<TextInput, GroupedInputItemProps>(
     );
 
     return renderItemContent();
-  }
+  },
 );
 
-GroupedInputItem.displayName = 'GroupedInputItem';
+GroupedInputItem.displayName = "GroupedInputItem";

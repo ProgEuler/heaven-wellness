@@ -86,7 +86,6 @@ export const Button = forwardRef<View, ButtonProps>(
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.dark.secondary
       };
 
       // Size variants

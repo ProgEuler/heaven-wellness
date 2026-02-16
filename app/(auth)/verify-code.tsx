@@ -1,17 +1,16 @@
-import { AuthLayout } from '@/components/auth-layout';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
-import { router } from 'expo-router';
-import { ArrowRight } from 'lucide-react-native';
-import React, { useState } from 'react';
-import { StyleSheet, Pressable, TextInput } from 'react-native';
+import { AuthLayout } from "@/components/auth-layout";
+import { Button } from "@/components/ui/button";
+import { InputOTP } from "@/components/ui/input-otp";
+import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
+import { router } from "expo-router";
+import { ArrowRight } from "lucide-react-native";
+import React, { useState } from "react";
+import { StyleSheet, Pressable } from "react-native";
 
 export default function VerifyCodeScreen() {
-  const [code, setCode] = useState(['', '', '', '', '', '']);
-  const brownGold = '#9B7C56';
-  const border = useColor('border');
+  const [code, setCode] = useState("");
+  const brownGold = "#9B7C56";
 
   return (
     <AuthLayout
@@ -20,25 +19,29 @@ export default function VerifyCodeScreen() {
     >
       <View style={styles.form}>
         <View style={styles.otpContainer}>
-          {code.map((digit, index) => (
-            <View key={index} style={[styles.otpBox, { borderColor: border }]}>
-              <Text style={styles.otpText}>{digit || ' '}</Text>
-            </View>
-          ))}
+          <InputOTP
+            keyboardType="numeric"
+            length={6}
+            value={code}
+            onChangeText={setCode}
+            onComplete={(value) => console.log("OTP complete ", value)}
+          />
         </View>
 
-        <Button
-          style={styles.button}
-          onPress={() => router.push('/new-password')}
-        >
-          <Text style={styles.buttonText}>Verify Code</Text>
-          <ArrowRight size={18} color="white" />
+        <Button onPress={() => router.push("/new-password")}>
+          <Text>Verify Code</Text>
+          <ArrowRight size={18} />
         </Button>
 
         <View style={styles.footer}>
           <Text variant="caption">Didn't receive the email? </Text>
           <Pressable>
-            <Text variant="caption" style={{ color: brownGold, fontWeight: '700' }}>Click to resend</Text>
+            <Text
+              variant="caption"
+              style={{ color: brownGold, fontWeight: "700" }}
+            >
+              Click to resend
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -51,38 +54,12 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   otpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     gap: 8,
-  },
-  otpBox: {
-    flex: 1,
-    height: 56,
-    borderRadius: 12,
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  otpText: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  button: {
-    backgroundColor: '#9B7C56',
-    borderRadius: 12,
-    height: 56,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 8,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
