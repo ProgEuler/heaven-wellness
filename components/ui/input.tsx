@@ -28,6 +28,7 @@ export interface InputProps extends Omit<TextInputProps, "style"> {
   type?: "input" | "textarea";
   placeholder?: string;
   rows?: number; // Only used when type="textarea"
+  borderRadius?: number;
 }
 
 export const Input = forwardRef<TextInput, InputProps>(
@@ -48,6 +49,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       onFocus,
       onBlur,
       placeholder,
+      borderRadius,
       ...props
     },
     ref,
@@ -75,7 +77,7 @@ export const Input = forwardRef<TextInput, InputProps>(
     // Variant styles
     const getVariantStyle = (): ViewStyle => {
       const baseStyle: ViewStyle = {
-        borderRadius: isTextarea ? BORDER_RADIUS : CORNERS,
+        borderRadius: borderRadius ?? (isTextarea ? BORDER_RADIUS : CORNERS),
         flexDirection: isTextarea ? "column" : "row",
         alignItems: isTextarea ? "stretch" : "center",
         minHeight: getHeight(),
@@ -138,7 +140,7 @@ export const Input = forwardRef<TextInput, InputProps>(
     const renderInputContent = () => (
       <View style={containerStyle}>
         {/* Input Container */}
-        <View style={containerStyle}>
+        <View>
           {/* Label Above */}
           {label && (
             <Text
@@ -147,7 +149,7 @@ export const Input = forwardRef<TextInput, InputProps>(
                 {
                   marginBottom: 6,
                   marginLeft: 4,
-                  color: error ? danger : "black",
+                  color: error ? danger : textColor,
                   fontSize: 16,
                   fontFamily: Fonts.serif
                 },

@@ -10,22 +10,23 @@ interface CardProps {
 }
 
 export function Card({ children, style }: CardProps) {
-  const cardColor = useColor('card');
-  const foregroundColor = useColor('foreground');
+   const background = useColor("background");
 
   return (
     <View
       style={[
         {
           width: '100%',
-          backgroundColor: cardColor,
-          borderRadius: BORDER_RADIUS,
+          backgroundColor: background,
+          borderWidth: 1,
+          borderColor: useColor('border'),
+          borderRadius: 16,
           padding: 18,
-          shadowColor: foregroundColor,
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.05,
-          shadowRadius: 3,
-          elevation: 2,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 6 },
+          shadowOpacity: 0.08,
+          shadowRadius: 12,
+          elevation: 5,
         },
         style,
       ]}

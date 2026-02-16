@@ -61,11 +61,10 @@ export default function LanguageScreen() {
         </View>
 
         <Button
-          style={styles.button}
           onPress={() => router.replace('/(tabs)/(home)')}
         >
-          <Text style={styles.buttonText}>Continue</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Continue</Text>
+          <ArrowRight size={18} />
         </Button>
       </View>
     </AuthLayout>
@@ -75,6 +74,7 @@ export default function LanguageScreen() {
 const styles = StyleSheet.create({
   form: {
     gap: 24,
+    marginBottom: 24
   },
   list: {
     gap: 12,
@@ -93,19 +93,5 @@ const styles = StyleSheet.create({
   },
   itemSubtitle: {
     fontSize: 12,
-  },
-  button: {
-    backgroundColor: '#9B7C56',
-    borderRadius: 12,
-    height: 56,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 8,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
   },
 });
