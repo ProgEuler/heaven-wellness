@@ -5,6 +5,7 @@ import { ScrollView } from '@/components/ui/scroll-view';
 import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
+import { router } from 'expo-router';
 import { LogOut, User, Mail, Shield, Bell } from 'lucide-react-native';
 import { StyleSheet } from 'react-native';
 
@@ -59,7 +60,7 @@ export default function ProfileScreen() {
       <Button
         variant="ghost"
         style={styles.logoutButton}
-        onPress={() => console.log('Logout pressed')}
+        onPress={() => router.push("/(auth)/login")}
       >
         <Icon name={LogOut} size={20} color={red} />
         <Text style={styles.logoutText}>

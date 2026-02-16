@@ -20,7 +20,8 @@
         "monochromeImage": "./assets/images/splash.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": true
+      "predictiveBackGestureEnabled": true,
+      "package": "com.saruf.heavenwellness"
     },
     "web": {
       "output": "static",
