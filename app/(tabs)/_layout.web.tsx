@@ -2,7 +2,8 @@ import React from 'react';
 import { Icon } from '@/components/ui/icon';
 import { useColor } from '@/hooks/useColor';
 import { Tabs } from 'expo-router';
-import { Home, Calendar, Key, CircleUser } from 'lucide-react-native';
+import { Home, Calendar, Key, CircleUser, House } from 'lucide-react-native';
+import { HapticTab } from '@/components/ui/haptic-tab';
 
 export default function WebTabsLayout() {
   const primary = useColor('primary');
@@ -10,6 +11,7 @@ export default function WebTabsLayout() {
   const screenOptions = {
     headerShown: false,
     tabBarActiveTintColor: primary,
+    tabBarButton: HapticTab
   };
 
   return (
@@ -19,7 +21,8 @@ export default function WebTabsLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name={Home} size={24} color={color} />
+            // <Icon name={Home} size={24} color={color} />
+            <House color={color} size={24} />
           ),
         }}
       />

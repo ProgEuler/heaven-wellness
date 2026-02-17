@@ -35,12 +35,8 @@ export const lightColors = {
   card: '#F2F2F7',
   cardForeground: '#000000',
 
-  // Popover colors
-  popover: '#F2F2F7',
-  popoverForeground: '#000000',
-
   // Primary colors
-  primary: '#8B7355',
+  primary: '#CFB9A3',
   primaryForeground: '#FFFFFF',
 
   // Secondary colors
@@ -51,9 +47,6 @@ export const lightColors = {
   muted: '#78788033',
   mutedForeground: '#71717a',
 
-  // Accent colors
-  accent: '#F2F2F7',
-  accentForeground: '#18181b',
 
   // Destructive colors
   destructive: '#ef4444',

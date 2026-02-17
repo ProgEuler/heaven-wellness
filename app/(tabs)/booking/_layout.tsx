@@ -1,60 +1,10 @@
-import { Text } from '@/components/ui/text';
-import { useColor } from '@/hooks/useColor';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { SearchProvider, useSearch } from '@/providers/search-context';
-import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { Stack } from 'expo-router';
-import { Platform } from 'react-native';
+import React from 'react';
 
-function SearchLayoutContent() {
-  const theme = useColorScheme();
-  const text = useColor('text');
-  const background = useColor('background');
-  const { setSearchText } = useSearch();
-
+export default function BookingTabLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerLargeTitle: true,
-        headerLargeTitleShadowVisible: false,
-        headerTintColor: text,
-        headerBlurEffect: isLiquidGlassAvailable()
-          ? undefined
-          : theme === 'dark'
-          ? 'systemMaterialDark'
-          : 'systemMaterialLight',
-        headerStyle: {
-          backgroundColor: isLiquidGlassAvailable()
-            ? 'transparent'
-            : background,
-        },
-      }}
-    >
-      <Stack.Screen
-        name='index'
-        options={{
-          title: 'Booking',
-          headerTitle: () =>
-            Platform.OS === 'android' ? (
-              <Text variant='heading'>Booking</Text>
-            ) : undefined,
-          headerSearchBarOptions: {
-            placement: 'automatic',
-            placeholder: 'Search bookings...',
-            onChangeText: (event) => {
-              setSearchText(event.nativeEvent.text);
-            },
-          },
-        }}
-      />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
     </Stack>
-  );
-}
-
-export default function SearchLayout() {
-  return (
-    <SearchProvider>
-      <SearchLayoutContent />
-    </SearchProvider>
   );
 }

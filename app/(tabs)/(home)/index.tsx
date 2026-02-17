@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Plus,
 } from "lucide-react-native";
+import { router } from 'expo-router';
 import React from "react";
 import { Platform, Pressable, StyleSheet } from "react-native";
 
@@ -120,18 +121,25 @@ export default function HomeScreen() {
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Quick Actions</Text>
         <View style={styles.quickActionsGrid}>
-          <ActionCard
-            icon={Plus}
-            title="New Booking"
-            subTitle="Reserve service"
-            labelBg={lightBeige}
-          />
-          <ActionCard
-            icon={Calendar}
-            title="My Bookings"
-            subTitle="2 upcoming"
-            labelBg={lightBeige}
-          />
+          <Pressable
+            style={{ flex: 1 }}
+            onPress={() => router.push('/(booking)')}
+          >
+            <ActionCard
+              icon={Plus}
+              title="New Booking"
+              subTitle="Reserve service"
+              labelBg={lightBeige}
+            />
+          </Pressable>
+          <Pressable style={{ flex: 1 }}>
+            <ActionCard
+              icon={Calendar}
+              title="My Bookings"
+              subTitle="2 upcoming"
+              labelBg={lightBeige}
+            />
+          </Pressable>
         </View>
       </View>
 
