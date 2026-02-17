@@ -114,7 +114,7 @@ export default function CategoryScreen() {
   const { category } = useLocalSearchParams<{ category: string }>();
   const data = CATEGORY_DATA[category as string] || CATEGORY_DATA.sauna;
 
-  const [select, setSelect] = useState(null);
+  const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const primary = useColor("primary");
   const background = useColor("background");
@@ -142,11 +142,21 @@ export default function CategoryScreen() {
 
         <View style={styles.list}>
           {data.services.map((service: any) => (
-            <Pressable key={service.id} onPress={() => setSelect(service.id)}>
+            <Pressable
+              key={service.id}
+              onPress={() =>
+                setSelectedService(
+                  selectedService === service.id ? null : service.id,
+                )
+              }
+            >
               <Card
                 style={[
                   styles.serviceCard,
-                  select ? { borderWidth: 6, borderColor: primary } : {},
+                  selectedService === service.id && {
+                    borderWidth: 3,
+                    borderColor: primary,
+                  },
                 ]}
               >
                 <View style={styles.imageContainer}>
@@ -204,9 +214,11 @@ export default function CategoryScreen() {
       </ScrollView>
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
         <Button
-          style={[!select && { opacity: 0.5 }]}
-          onPress={() => select && router.push("/(booking)/select-date")}
-          disabled={!select}
+          //  style={[!select && { opacity: 0.5 }]}
+          onPress={() =>
+            selectedService && router.push("/(booking)/select-date")
+          }
+          disabled={!selectedService}
         >
           <Text>Continue</Text>
           <ArrowRight size={18} />

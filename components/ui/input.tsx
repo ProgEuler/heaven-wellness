@@ -77,7 +77,7 @@ export const Input = forwardRef<TextInput, InputProps>(
     // Variant styles
     const getVariantStyle = (): ViewStyle => {
       const baseStyle: ViewStyle = {
-        borderRadius: borderRadius ?? (isTextarea ? BORDER_RADIUS : CORNERS),
+        borderRadius: borderRadius ?? (isTextarea ? 0 : CORNERS),
         flexDirection: isTextarea ? "column" : "row",
         alignItems: isTextarea ? "stretch" : "center",
         minHeight: getHeight(),

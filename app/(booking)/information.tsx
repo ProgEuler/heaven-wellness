@@ -51,11 +51,10 @@ export default function InformationScreen() {
           />
           <Input
             label="Special Requests (Optional)"
-            placeholder="Any allergies or preferences..."
             variant="outline"
             multiline
-            numberOfLines={4}
             inputStyle={{ height: 100, textAlignVertical: 'top' }}
+            type='textarea'
           />
 
           <AvoidKeyboard />

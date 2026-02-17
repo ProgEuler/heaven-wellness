@@ -6,13 +6,14 @@ import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
 import { Fonts } from '@/theme/colors';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { Minus, Plus, Users, ArrowRight } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function GuestsScreen() {
+   const { date, time } = useLocalSearchParams();
   const [guests, setGuests] = useState(2);
   const background = useColor('background');
   const textMuted = useColor('textMuted');
@@ -33,11 +34,11 @@ export default function GuestsScreen() {
         <Card style={styles.summaryCard}>
           <View style={styles.summaryRow}>
             <Text variant="caption" style={{ color: textMuted }}>Date</Text>
-            <Text style={styles.summaryValue}>Friday 20 February</Text>
+            <Text style={styles.summaryValue}>{date}</Text>
           </View>
           <View style={styles.summaryRow}>
             <Text variant="caption" style={{ color: textMuted }}>Time</Text>
-            <Text style={styles.summaryValue}>12:00 PM</Text>
+            <Text style={styles.summaryValue}>{time}</Text>
           </View>
         </Card>
 

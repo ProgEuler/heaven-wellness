@@ -6,8 +6,8 @@ import { Text } from '@/components/ui/text';
 import { View } from '@/components/ui/view';
 import { useColor } from '@/hooks/useColor';
 import { Fonts } from '@/theme/colors';
-import { router } from 'expo-router';
-import { Clock, ArrowRight } from 'lucide-react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { Clock, ArrowRight, TimerResetIcon } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,6 +20,7 @@ const TIME_SLOTS = [
 ];
 
 export default function SelectTimeScreen() {
+   const { date } = useLocalSearchParams()
   const [selectedTime, setSelectedTime] = useState('12:00 PM');
   const background = useColor('background');
   const textMuted = useColor('textMuted');
@@ -39,7 +40,7 @@ export default function SelectTimeScreen() {
 
         <Card style={styles.dateInfoCard}>
            <Text variant="caption" style={{ color: textMuted }}>Selected Date</Text>
-           <Text style={styles.dateValue}>Friday 20 February 2026</Text>
+           <Text style={styles.dateValue}>{date}</Text>
         </Card>
 
         <View style={styles.grid}>
@@ -75,7 +76,13 @@ export default function SelectTimeScreen() {
       <View style={[styles.footer, { borderTopColor: useColor('border') }]}>
         <Button
           style={styles.continueButton}
-          onPress={() => router.push('/(booking)/guests')}
+          onPress={() => router.push({
+            pathname: '/(booking)/guests',
+            params: {
+               date,
+               time: selectedTime,
+            }
+          })}
         >
           <Text style={styles.buttonText}>Continue to Guests</Text>
           <ArrowRight size={18} color="white" />

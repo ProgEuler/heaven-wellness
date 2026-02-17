@@ -14,16 +14,56 @@ import { Calendar } from "react-native-calendars";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SelectDateScreen() {
-  const [selectedDay, setSelectedDay] = useState(20);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const bookedDates = [
+    "2026-02-04",
+    "2026-02-11",
+    "2026-03-18",
+    "2026-03-25",
+    "2026-02-07",
+  ];
   const background = useColor("background");
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
   const primary = useColor("primary");
   const secondary = useColor("secondary");
+  const border = useColor("border");
   const insets = useSafeAreaInsets();
   const headerHeight = insets.top + 60;
 
   const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  const markedDates = {
+    ...(selectedDate && {
+      [selectedDate]: {
+        customStyles: {
+          container: {
+            backgroundColor: "#9B7C56",
+            borderRadius: 20,
+          },
+          text: {
+            color: "white",
+            fontWeight: "700",
+          },
+        },
+      },
+    }),
+
+    ...bookedDates.reduce((acc, date) => {
+      acc[date] = {
+        customStyles: {
+          container: {
+            backgroundColor: "#E5E7EB",
+            borderRadius: 20,
+          },
+          text: {
+            color: "#9CA3AF",
+          },
+        },
+      };
+      return acc;
+    }, {} as any),
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
@@ -42,82 +82,89 @@ export default function SelectDateScreen() {
           </Text>
         </View>
 
-        {/* <Card style={styles.calendarCard}> */}
-        {/* <View style={styles.monthHeader}>
-            <Pressable>
-              <ChevronLeft size={20} color={brownGold} />
-            </Pressable>
-            <Text style={styles.monthName}>March 2026</Text>
-            <Pressable>
-              <ChevronRight size={20} color={brownGold} />
-            </Pressable>
-          </View>
-
-          <View style={styles.legend}>
-            <View style={styles.legendItem}>
-              <View style={[styles.dot, { backgroundColor: "#FCD34D" }]} />
-              <Text variant="caption">Available</Text>
-            </View>
-            <View style={styles.legendItem}>
-              <View style={[styles.dot, { backgroundColor: "#E5E7EB" }]} />
-              <Text variant="caption">Booked</Text>
-            </View>
-          </View>
-
-          <View style={styles.weekDays}>
-            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
-              <Text key={d} style={styles.weekDayText}>
-                {d}
-              </Text>
-            ))}
-          </View> */}
-
-        {/* <View style={styles.daysGrid}> */}
-        {/* </View> */}
-        {/* </Card> */}
         <Calendar
-          onDayPress={(day) => {
-            // console.log("selected day", day.day);
-            // setSelectedDate(day.day);
-          }}
-          onMonthChange={(data) => {
-            // setMonth(data.month);
-            // setYear(data.year);
-          }}
-          //  markedDates={{
-          //    ...markedDates,
-          //    [selectedDate
-          //      ? `${year}-${String(month).padStart(2, "0")}-${String(selectedDate).padStart(2, "0")}`
-          //      : ""]: {
-          //      selected: true,
-          //      selectedColor: colors.dark.success,
-          //    },
-          //  }}
           hideExtraDays
           enableSwipeMonths
+          renderHeader={(date) => {
+            const month = date.toString("MMMM yyyy");
+
+            return (
+              <View style={styles.customHeader}>
+                <Text style={styles.monthName}>{month}</Text>
+
+                {/* 👇 Your extra text here */}
+                <View style={{ flexDirection: 'row', gap: 18, marginTop: 12}}>
+                  <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center'}}>
+                    <View
+                      style={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: 18,
+                        backgroundColor: "#FCF2E9",
+                        borderWidth: 1,
+                        borderColor: "#F9E4D0",
+                      }}
+                    />
+                    <Text style={{ fontFamily: Fonts.serif, fontSize: 14, color: textMuted}}>Available</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center'}}>
+                    <View
+                      style={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: 18,
+                        backgroundColor: border,
+                      }}
+                    />
+                    <Text style={{ fontFamily: Fonts.serif, fontSize: 14, color: textMuted}}>Booked</Text>
+                  </View>
+                </View>
+              </View>
+            );
+          }}
+          dayComponent={({ date }) => {
+            const isSelected = selectedDate === date.dateString;
+            const isBooked = bookedDates.includes(date.dateString);
+
+            return (
+              <Pressable
+                disabled={isBooked}
+                onPress={() => setSelectedDate(date.dateString)}
+                style={[
+                  styles.dayCircle,
+                  isSelected && styles.selectedCircle,
+                  isBooked && styles.bookedCircle,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.dayText,
+                    isSelected && { color: "white" },
+                    isBooked && { color: "#9CA3AF" },
+                  ]}
+                >
+                  {date.day}
+                </Text>
+              </Pressable>
+            );
+          }}
+          theme={{
+            calendarBackground: background,
+            arrowColor: "#9B7C56",
+            textMonthFontFamily: Fonts.serif,
+            textMonthFontSize: 18,
+            textMonthFontWeight: 600,
+          }}
           style={{
             borderWidth: 1,
             borderRadius: 24,
-            borderColor: primary,
-            height: 320,
+            borderColor: border,
+            paddingBottom: 12,
             shadowColor: "#000",
             shadowOffset: { width: 0, height: 6 },
             shadowOpacity: 0.08,
             shadowRadius: 12,
             elevation: 5,
-          }}
-          theme={{
-            calendarBackground: background,
-            textSectionTitleColor: "#b6c1cd",
-            selectedDayBackgroundColor: secondary,
-            selectedDayTextColor: "#ffffff",
-            todayTextColor: "#000",
-            todayBackgroundColor: primary,
-            todayDotColor: primary,
-            dayTextColor: "#000",
-            // textDisabledColor: colors.dark.textSecondary,
-            // monthTextColor: colors.dark.text,
-            arrowColor: primary,
           }}
         />
 
@@ -125,12 +172,15 @@ export default function SelectDateScreen() {
           <Text variant="caption" style={{ color: textMuted }}>
             Selected Date
           </Text>
-          <Text style={styles.summaryValue}>Friday 20 February 2026</Text>
+          <Text style={styles.summaryValue}>{selectedDate}</Text>
         </Card>
       </ScrollView>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
-        <Button onPress={() => router.push("/(booking)/select-time")}>
+        <Button onPress={() => router.push({
+         pathname: "/(booking)/select-time",
+         params: { date: selectedDate }
+        })}>
           <Text>Continue to Time Selection</Text>
           <ArrowRight size={18} />
         </Button>
@@ -162,57 +212,6 @@ const styles = StyleSheet.create({
   calendarCard: {
     padding: 20,
     borderRadius: 24,
-  },
-  monthHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  monthName: {
-    fontSize: 18,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-  },
-  legend: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
-    marginBottom: 20,
-  },
-  legendItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  weekDays: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  weekDayText: {
-    width: 40,
-    textAlign: "center",
-    fontSize: 12,
-    fontWeight: "700",
-    color: "#3F3F46",
-  },
-  daysGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  dayBox: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 4,
   },
   dayText: {
     fontSize: 14,
@@ -256,5 +255,50 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "700",
+  },
+  calendar: {
+    borderRadius: 24,
+    paddingBottom: 10,
+  },
+  dayCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FCF2E9",
+    borderWidth: 1,
+    borderColor: "#F9E4D0",
+  },
+
+  selectedCircle: {
+    backgroundColor: "#9B7C56",
+    borderWidth: 1,
+    borderColor: "#000",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+
+  bookedCircle: {
+    backgroundColor: "#E5E7EB",
+  },
+  customHeader: {
+    paddingVertical: 10,
+    alignItems: "center",
+  },
+
+  monthName: {
+    fontSize: 18,
+    fontWeight: "700",
+    fontFamily: Fonts.serif,
+  },
+
+  headerSubText: {
+    fontSize: 12,
+    color: "#9CA3AF",
+    marginTop: 4,
   },
 });
