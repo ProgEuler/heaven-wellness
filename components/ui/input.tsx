@@ -25,7 +25,7 @@ export interface InputProps extends Omit<TextInputProps, "style"> {
   errorStyle?: TextStyle;
   variant?: "filled" | "outline";
   disabled?: boolean;
-  type?: "input" | "textarea";
+  type?: "input" | "textarea" | "numeric";
   placeholder?: string;
   rows?: number; // Only used when type="textarea"
   borderRadius?: number;

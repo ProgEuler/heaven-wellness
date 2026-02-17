@@ -1,4 +1,5 @@
 import { BookingHeader } from '@/components/booking-header';
+import { AvoidKeyboard } from '@/components/ui/avoid-keyboard';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -29,7 +30,7 @@ export default function InformationScreen() {
           <Text style={[styles.subtitle, { color: textMuted }]}>Tell us a bit about yourself</Text>
         </View>
 
-        <Card style={styles.formCard}>
+        <View style={styles.formCard}>
           <Input
             label="Full Name"
             placeholder="Akash"
@@ -46,6 +47,7 @@ export default function InformationScreen() {
             placeholder="+1234567890"
             variant="outline"
             keyboardType="phone-pad"
+            type='numeric'
           />
           <Input
             label="Special Requests (Optional)"
@@ -55,16 +57,18 @@ export default function InformationScreen() {
             numberOfLines={4}
             inputStyle={{ height: 100, textAlignVertical: 'top' }}
           />
-        </Card>
+
+          <AvoidKeyboard />
+
+        </View>
       </ScrollView>
 
       <View style={[styles.footer, { borderTopColor: useColor('border') }]}>
         <Button
-          style={styles.continueButton}
           onPress={() => router.push('/(booking)/confirmation')}
         >
-          <Text style={styles.buttonText}>Continue to Confirmation</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Continue to Confirmation</Text>
+          <ArrowRight />
         </Button>
       </View>
     </View>
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   formCard: {
-    padding: 24,
+   //  padding: 24,
     borderRadius: 24,
     gap: 20,
   },

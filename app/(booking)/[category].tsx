@@ -203,7 +203,11 @@ export default function CategoryScreen() {
         </View>
       </ScrollView>
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
-        <Button onPress={() => router.push("/(booking)/select-date")}>
+        <Button
+          style={[!select && { opacity: 0.5 }]}
+          onPress={() => select && router.push("/(booking)/select-date")}
+          disabled={!select}
+        >
           <Text>Continue</Text>
           <ArrowRight size={18} />
         </Button>
