@@ -6,7 +6,10 @@ import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
 import { Copy, Info, Key, Zap } from "lucide-react-native";
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Alert, Pressable, StyleSheet } from "react-native";
+import * as Clipboard from 'expo-clipboard';
+import { toast } from "sonner-native";
+import { useToast } from "@/components/ui/toast";
 
 export default function AccessScreen() {
   const textMuted = useColor("textMuted");
@@ -15,6 +18,7 @@ export default function AccessScreen() {
   const lightBlue = "#EFF6FF";
   const blueText = "#1D4ED8";
   const border = useColor("border");
+  const { toast } = useToast();
 
   // Mock data for the access code
   const booking = {
@@ -23,6 +27,21 @@ export default function AccessScreen() {
     date: "Sunday, 15 February 2026",
     time: "10:00 AM",
     accessCode: "SRN-2468",
+  };
+
+const copyToClipboard = async (text: string) => {
+  await Clipboard.setStringAsync(text);
+//   Alert.alert('Copied!', 'Text copied to clipboard');
+//  toast.success("copied")
+showToast()
+};
+
+  const showToast = () => {
+    toast({
+      title: 'Success!',
+      description: 'Your changes have been saved.',
+      variant: 'success',
+    });
   };
 
   return (
@@ -55,7 +74,7 @@ export default function AccessScreen() {
 
           <View style={styles.codeRow}>
             <Text style={styles.codeValue}>{booking.accessCode}</Text>
-            <Pressable style={styles.copyButton}>
+            <Pressable style={styles.copyButton} onPress={() => copyToClipboard("Booking ID: 123123")}>
               <Copy size={16} color="#fff" />
               <Text style={styles.copyText}>Copy</Text>
             </Pressable>
