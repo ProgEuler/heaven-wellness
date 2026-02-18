@@ -1,174 +1,223 @@
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Icon } from '@/components/ui/icon';
-import { ScrollView } from '@/components/ui/scroll-view';
-import { Text } from '@/components/ui/text';
-import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
-import { router } from 'expo-router';
-import { LogOut, User, Mail, Shield, Bell } from 'lucide-react-native';
-import { StyleSheet } from 'react-native';
+import { ScreenView } from "@/components/layout/screen-view";
+import { Card } from "@/components/ui/card";
+import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
+import { useColor } from "@/hooks/useColor";
+import { Fonts } from "@/theme/colors";
+import { Image } from "expo-image";
+import { router } from "expo-router";
+import {
+  Bell,
+  ChevronRight,
+  Globe,
+  HelpCircle,
+  Info,
+  LogOut,
+  Shield,
+  Star,
+  User,
+  Crown,
+} from "lucide-react-native";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Switch } from "react-native";
 
 export default function ProfileScreen() {
-  const primary = useColor('primary');
-  const red = useColor('red');
-  const muted = useColor('muted');
+  const textMuted = useColor("textMuted");
+  const brownGold = "#9B7C56";
+  const lightBeige = "#FCF2E9";
+  const red = "#EF4444";
+  const lightRed = "#FEF2F2";
 
-  const styles = createStyles(muted, primary, red);
+  const [pushEnabled, setPushEnabled] = useState(false);
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
+    <ScreenView safe padding={24}>
+      {/* User Info Header */}
       <View style={styles.header}>
-        <View style={styles.avatarContainer}>
-          <Icon name={User} size={48} color={primary} />
+        <Image
+          source="https://i.pravatar.cc/150?u=akash"
+          style={styles.avatar}
+        />
+        <View>
+          <Text style={styles.userName}>Akash</Text>
+          <Text variant="caption" style={{ color: textMuted }}>
+            Akash@gmail.com
+          </Text>
         </View>
-        <Text variant="title" style={styles.profileName}>
-          John Doe
-        </Text>
-        <Text variant="caption">Premium Member</Text>
       </View>
 
+      {/* Account Section */}
       <View style={styles.section}>
-        <Text variant="body" style={styles.sectionHeader}>
-          Account Information
-        </Text>
+        <Text style={styles.sectionTitle}>Account</Text>
         <Card style={styles.card}>
-          <ProfileItem
-            icon={Mail}
-            label="Email"
-            value="john.doe@example.com"
-            color={primary}
-          />
-          <ProfileItem
-            icon={Shield}
-            label="Security"
-            value="Status: Protected"
-            color={primary}
-          />
-          <ProfileItem
-            icon={Bell}
-            label="Notifications"
-            value="Enabled"
-            color={primary}
+          <MenuItem
+            icon={User}
+            label="Profile"
+            onPress={() => router.push("/(tabs)/profile/preview")}
           />
         </Card>
       </View>
 
-      <Button
-        variant="ghost"
+      {/* Preferences Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Preferences</Text>
+        <Card style={styles.card}>
+          <View style={styles.menuItem}>
+            <View style={styles.iconCircle}>
+              <Bell size={20} color={brownGold} strokeWidth={1.5} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.menuLabel}>Push Notifications</Text>
+              <Text style={{ color: textMuted, fontSize: 14 }}>
+                Booking reminders & updates
+              </Text>
+            </View>
+            <Switch
+              value={pushEnabled}
+              onValueChange={setPushEnabled}
+              trackColor={{ false: "#D1D5DB", true: brownGold }}
+              thumbColor="white"
+              style={{ transform: [{ scale: 0.8 }] }}
+            />
+          </View>
+          <View style={styles.separator} />
+          <MenuItem
+            icon={Crown}
+            label="Premium Member"
+            onPress={() => router.push("/(tabs)/profile/premium")}
+          />
+          <View style={styles.separator} />
+          <MenuItem
+            icon={Globe}
+            label="Language"
+            onPress={() => router.push("/(tabs)/profile/language")}
+          />
+        </Card>
+      </View>
+
+      {/* Privacy & Security Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Privacy & Security</Text>
+        <Card style={styles.card}>
+          <MenuItem
+            icon={Shield}
+            label="Privacy Policy"
+            onPress={() => router.push("/(tabs)/profile/privacy")}
+          />
+          <View style={styles.separator} />
+          <MenuItem
+            icon={HelpCircle}
+            label="Help & Support"
+            onPress={() => router.push("/(tabs)/profile/help")}
+          />
+          <View style={styles.separator} />
+          <MenuItem
+            icon={Info}
+            label="Terms & Conditions"
+            onPress={() => router.push("/(tabs)/profile/terms")}
+          />
+        </Card>
+      </View>
+
+      {/* Logout Button */}
+      <Pressable
         style={styles.logoutButton}
-        onPress={() => router.push("/(auth)/login")}
+        onPress={() => router.replace("/(auth)/login")}
       >
-        <Icon name={LogOut} size={20} color={red} />
-        <Text style={styles.logoutText}>
-          Log Out
-        </Text>
-      </Button>
-    </ScrollView>
+        <LogOut size={20} color={red} />
+        <Text style={styles.logoutText}>Log Out</Text>
+      </Pressable>
+    </ScreenView>
   );
 }
 
-function ProfileItem({
-  icon,
-  label,
-  value,
-  color,
-}: {
-  icon: any;
-  label: string;
-  value: string;
-  color: string;
-}) {
-  const styles = itemStyles(color);
+function MenuItem({ icon: IconComp, label, onPress }: any) {
+  const textMuted = useColor("textMuted");
+  const brownGold = "#9B7C56";
 
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Icon name={icon} size={20} color={color} />
+    <Pressable style={styles.menuItem} onPress={onPress}>
+      <View style={styles.iconCircle}>
+        <IconComp size={20} color={brownGold} strokeWidth={1.5} />
       </View>
-      <View style={styles.textContainer}>
-        <Text variant="caption" style={styles.label}>
-          {label}
-        </Text>
-        <Text variant="body" style={styles.value}>
-          {value}
-        </Text>
-      </View>
-    </View>
+      <Text style={styles.menuLabel}>{label}</Text>
+      <ChevronRight size={18} color={textMuted} />
+    </Pressable>
   );
 }
 
-const createStyles = (muted: string, primary: string, red: string) => StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    padding: 24,
-    paddingTop: 120,
-    gap: 24,
-  },
+const styles = StyleSheet.create({
   header: {
-    alignItems: 'center',
-    marginBottom: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    marginBottom: 32,
   },
-  avatarContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: muted,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
-  profileName: {
-    fontWeight: '700',
+  userName: {
+    fontSize: 24,
+    fontWeight: "700",
+    fontFamily: Fonts.serif,
   },
   section: {
-    gap: 12,
+    marginBottom: 18,
   },
-  sectionHeader: {
-    fontWeight: '600',
+  sectionTitle: {
+    fontSize: 18,
+    fontFamily: Fonts.serif,
+    fontWeight: "600",
+    color: "#18181B",
+    marginBottom: 16,
     marginLeft: 4,
   },
   card: {
+    padding: 2,
+    borderRadius: 12,
+    borderWidth: 1,
+    backgroundColor: "white",
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 12,
     gap: 16,
   },
+  iconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#FCF2E9",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  menuLabel: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "400",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "#F4F4F5",
+    marginHorizontal: 12,
+  },
   logoutButton: {
-    marginTop: 12,
-    borderColor: red,
-    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 18,
+    borderRadius: 12,
+    backgroundColor: "#FEF2F2",
+    gap: 10,
+    marginTop: 8,
+    marginBottom: 60,
   },
   logoutText: {
-    color: red,
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-});
-
-const itemStyles = (color: string) => StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  iconContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: color + '20',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textContainer: {
-    flex: 1,
-  },
-  label: {
-    opacity: 0.7,
-  },
-  value: {
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#EF4444",
   },
 });

@@ -1,6 +1,5 @@
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
-import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
