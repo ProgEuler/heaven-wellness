@@ -1,6 +1,4 @@
 import { Layout } from "@/components/layout/Layout";
-import { ScreenView } from "@/components/layout/screen-view";
-import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";

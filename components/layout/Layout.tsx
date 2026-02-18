@@ -105,7 +105,7 @@ export function Layout({
             gap: 18,
             paddingHorizontal: activePaddingHorizontal,
             paddingBottom: Platform.OS === "ios" ? 120 : 80,
-            paddingTop: Platform.OS === "ios" ? 40 : 20,
+            paddingTop: Platform.OS === "ios" ? 20 : 20,
           },
           style,
         ]}
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    top: Platform.OS === "ios" ? 44 : 0, // Roughly below status bar
+    top: Platform.OS === "ios" ? 40 : 0, // Roughly below status bar
     left: 0,
     right: 0,
     zIndex: 100,

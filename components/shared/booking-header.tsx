@@ -19,7 +19,7 @@ export function BackHeader({ showBorder = true }: { showBorder?: boolean }) {
         {
           backgroundColor: background,
           paddingTop: insets.top + 12,
-          //   borderBottomWidth: showBorder ? 0.2 : 0,
+            borderBottomWidth: showBorder ? 0.2 : 0,
           borderBottomColor: primary,
         },
       ]}

@@ -18,6 +18,7 @@ import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Layout } from "@/components/layout/Layout";
+import Header from "@/components/shared/inside-header";
 
 export default function HelpSupportScreen() {
   const insets = useSafeAreaInsets();
@@ -25,11 +26,10 @@ export default function HelpSupportScreen() {
   const brownGold = "#9B7C56";
 
   return (
+   <>
+   <BackHeader />
       <Layout>
-        <Text style={styles.title}>Help & Support</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Effective Date: Oct 1, 2025
-        </Text>
+         <Header title="Help & Support" subtitle="Effective Date: Oct 1, 2025" />
 
         <Card style={[styles.heroCard, { backgroundColor: brownGold }]}>
           <HelpCircle size={32} color="white" opacity={0.8} />
@@ -71,6 +71,7 @@ export default function HelpSupportScreen() {
           <FAQAccordion data={FAQ} />
         </View>
       </Layout>
+  </>
   );
 }
 
@@ -91,24 +92,10 @@ function ContactMethod({ icon: IconComp, label, color, iconColor, type }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 14,
-    marginBottom: 32,
-  },
   heroCard: {
-    padding: 32,
-    borderRadius: 32,
+    padding: 24,
     gap: 12,
-    marginBottom: 32,
+    marginBottom: 16,
     borderWidth: 0,
   },
   heroTitle: {

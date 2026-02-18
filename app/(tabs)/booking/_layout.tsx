@@ -12,20 +12,7 @@ export default function SettingsLayout() {
   return (
     <Stack
       screenOptions={{
-        headerLargeTitle: true,
-        headerLargeTitleShadowVisible: false,
-        headerTintColor: text,
-        headerBlurEffect: isLiquidGlassAvailable()
-          ? undefined
-          : theme === 'dark'
-            ? 'systemMaterialDark'
-            : 'systemMaterialLight',
-        headerShown: Platform.OS !== 'android',
-        headerStyle: {
-          backgroundColor: isLiquidGlassAvailable()
-            ? 'transparent'
-            : background,
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen

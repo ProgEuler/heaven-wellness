@@ -1,5 +1,4 @@
 import { Layout } from "@/components/layout/Layout";
-import { ScreenView } from "@/components/layout/screen-view";
 import { Avatar } from "@/components/shared/avatar";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
@@ -8,15 +7,11 @@ import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
-import { Image } from "expo-image";
 import { router } from "expo-router";
-import { Camera } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function EditProfileScreen() {
-  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
 
   const [name, setName] = useState("Akash");
@@ -24,8 +19,9 @@ export default function EditProfileScreen() {
   const [phone, setPhone] = useState("+1234567890");
 
   return (
-      <Layout title="Edit Profile">
-
+    <>
+      <BackHeader />
+      <Layout>
         <View style={styles.avatarSection}>
           {/* <View>
             <Image
@@ -79,32 +75,21 @@ export default function EditProfileScreen() {
         </View>
 
         <View style={styles.footer}>
-          <Button style={{ width: "80%"}} variant="outline" onPress={() => router.back()}>
+          <Button variant="outline" onPress={() => router.back()}>
             Cancel
           </Button>
           <Button onPress={() => router.back()}>Save Changes</Button>
         </View>
       </Layout>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 32,
-  },
   avatarSection: {
     alignItems: "center",
     marginBottom: 40,
+    marginTop: 20,
   },
   avatar: {
     width: 120,
@@ -143,9 +128,9 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     alignItems: "center",
-   //  justifyContent: "center",
-   //  justifyContent: "space-between",
-   //  gap: 16,
+   //   justifyContent: "center",
+     justifyContent: "space-between",
+   //   gap: 16,
     marginBottom: 40,
   },
 });

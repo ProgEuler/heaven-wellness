@@ -1,19 +1,16 @@
 import { Layout } from "@/components/layout/Layout";
-import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
-import { Fonts } from "@/theme/colors";
 import { router } from "expo-router";
 import { Check } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function LanguageScreen() {
-  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
   const [selected, setSelected] = useState("English");
 
@@ -24,12 +21,10 @@ export default function LanguageScreen() {
   ];
 
   return (
-
+    <>
+      <BackHeader />
       <Layout title="Language">
-        <Text style={styles.title}>Choose Your Language</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Select your preferred language
-        </Text>
+        <Header title="Choose Your Language" subtitle="Select your preferred language" />
 
         <View style={styles.list}>
           {languages.map((lang) => {
@@ -37,17 +32,21 @@ export default function LanguageScreen() {
             return (
               <Pressable
                 key={lang.label}
-                style={[
-                  styles.item,
-                  isSelected && styles.selectedItem,
-                ]}
+                style={[styles.item, isSelected && styles.selectedItem]}
                 onPress={() => setSelected(lang.label)}
               >
                 <View>
-                  <Text style={[styles.label, isSelected && styles.selectedText]}>
+                  <Text
+                    style={[styles.label, isSelected && styles.selectedText]}
+                  >
                     {lang.label}
                   </Text>
-                  <Text variant="caption" style={{ color: isSelected ? "rgba(255,255,255,0.7)" : textMuted }}>
+                  <Text
+                    variant="caption"
+                    style={{
+                      color: isSelected ? "rgba(255,255,255,0.7)" : textMuted,
+                    }}
+                  >
                     {lang.sub}
                   </Text>
                 </View>
@@ -57,30 +56,15 @@ export default function LanguageScreen() {
           })}
         </View>
 
-        <Button
-          style={styles.saveButton}
-          onPress={() => router.back()}
-        >
+        <Button onPress={() => router.back()}>
           <Text style={styles.saveButtonText}>Save</Text>
         </Button>
       </Layout>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 14,
-    marginBottom: 32,
-  },
   list: {
     gap: 16,
     marginBottom: 40,

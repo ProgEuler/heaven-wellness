@@ -1,27 +1,21 @@
 import { Layout } from "@/components/layout/Layout";
-import { ScreenView } from "@/components/layout/screen-view";
 import { Avatar } from "@/components/shared/avatar";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
-import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
-import { Image } from "expo-image";
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PreviewProfileScreen() {
-  const insets = useSafeAreaInsets();
-  const textMuted = useColor("textMuted");
-  const border = useColor("border");
-
   return (
-<Layout>
-   {/* <Text>manage your personal information</Text> */}
+    <>
+      <BackHeader />
+      <Layout>
+         <Header title="Profile" subtitle="Manage your personal information" />
         <View style={styles.avatarSection}>
           <Avatar editable={false} />
         </View>
@@ -36,7 +30,8 @@ export default function PreviewProfileScreen() {
         <Button onPress={() => router.push("/(tabs)/profile/edit")}>
           Edit Profile
         </Button>
-        </Layout>
+      </Layout>
+    </>
   );
 }
 
@@ -61,22 +56,9 @@ function InfoItem({ label, value }: { label: string; value: string }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 32,
-  },
   avatarSection: {
     alignItems: "center",
-    marginBottom: 40,
+   //  marginBottom: 40,
   },
   avatar: {
     width: 120,
@@ -85,7 +67,7 @@ const styles = StyleSheet.create({
   },
   infoSection: {
     gap: 18,
-    marginBottom: 40,
+    marginBottom: 30,
   },
   infoItem: {
     borderBottomWidth: 1,
