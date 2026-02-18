@@ -16,14 +16,16 @@ import {
 } from "lucide-react-native";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Layout } from "@/components/layout/Layout";
 
 export default function HelpSupportScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
 
   return (
-    <View style={styles.container}>
-      <ScreenView safe={false} contentContainerStyle={styles.scrollContent}>
+      <Layout>
         <Text style={styles.title}>Help & Support</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
           Effective Date: Oct 1, 2025
@@ -68,8 +70,7 @@ export default function HelpSupportScreen() {
           <Text style={styles.sectionTitle}>Popular FAQs</Text>
           <FAQAccordion data={FAQ} />
         </View>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 
@@ -92,11 +93,6 @@ function ContactMethod({ icon: IconComp, label, color, iconColor, type }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollContent: {
-    paddingTop: 100,
-   //  paddingBottom: 40,
-   //  paddingHorizontal: 24,
   },
   title: {
     fontSize: 32,

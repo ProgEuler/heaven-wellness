@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -132,8 +133,8 @@ export default function MyReservationsScreen() {
   );
 
   return (
-    <ScreenView padding={false}>
-      <View style={styles.header}>
+    <Layout>
+      <View>
         <View style={styles.headerTop}>
           <View style={{ flex: 1 }}>
             <Text style={styles.title}>My Reservations</Text>
@@ -183,7 +184,7 @@ export default function MyReservationsScreen() {
         </View>
       </View>
 
-      <View style={styles.listContainer}>
+      <View>
         {activeTab === "Upcoming" ? (
           <View style={styles.list}>
             {upcomingBookings.map(renderBookingCard)}
@@ -214,16 +215,11 @@ export default function MyReservationsScreen() {
           </Card>
         )}
       </View>
-    </ScreenView>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: 24,
-    paddingTop: 12,
-    paddingBottom: 24,
-  },
   headerTop: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -276,9 +272,6 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: "black",
     fontWeight: "700",
-  },
-  listContainer: {
-    paddingHorizontal: 24,
   },
   list: {
     gap: 16,

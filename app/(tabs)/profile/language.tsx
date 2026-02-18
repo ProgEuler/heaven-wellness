@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
@@ -9,8 +10,10 @@ import { router } from "expo-router";
 import { Check } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function LanguageScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
   const [selected, setSelected] = useState("English");
 
@@ -21,9 +24,8 @@ export default function LanguageScreen() {
   ];
 
   return (
-    <View style={styles.container}>
-      <BackHeader />
-      <ScreenView safe={false} contentContainerStyle={{ paddingTop: 100 }}>
+
+      <Layout>
         <Text style={styles.title}>Choose Your Language</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
           Select your preferred language
@@ -61,8 +63,7 @@ export default function LanguageScreen() {
         >
           <Text style={styles.saveButtonText}>Save</Text>
         </Button>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 

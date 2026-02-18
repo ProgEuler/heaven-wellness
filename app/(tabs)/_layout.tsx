@@ -1,79 +1,117 @@
-import { Platform, StyleSheet } from "react-native";
 import { useColor } from "@/hooks/useColor";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Fonts } from "@/theme/colors";
+import { BlurView as ExpoBlurView } from "expo-blur";
+import { Tabs } from "expo-router";
 import {
-  Icon,
-  Label,
-  NativeTabs,
-  VectorIcon,
-} from "expo-router/unstable-native-tabs";
-import MaterialIcons from "@expo/vector-icons/Feather";
+  Calendar,
+  Home,
+  Key,
+  User,
+} from "lucide-react-native";
+import React from "react";
+import { Platform, StyleSheet, View } from "react-native";
 
 export default function TabsLayout() {
-  const red = useColor("red");
   const primary = useColor("primary");
-  const foreground = useColor("foreground");
-
-  const styles = createStyles(primary, foreground);
+  const textMuted = useColor("textMuted");
+  const brownGold = "#9B7C56";
+  const colorScheme = useColorScheme();
+  const tint = colorScheme === 'dark' ? 'dark' : 'light';
 
   return (
-    <NativeTabs
-      minimizeBehavior="onScrollDown"
-      labelStyle={styles.labelStyle}
-      iconColor={styles.iconColor}
-      badgeBackgroundColor={red}
-      labelVisibilityMode="labeled"
-      disableTransparentOnScrollEdge={true}
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: "absolute",
+          borderTopWidth: 0.5,
+          borderTopColor: colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+          elevation: 0,
+          height: Platform.OS === 'ios' ? 88 : 68,
+          backgroundColor: 'transparent',
+        },
+        tabBarBackground: () => (
+          <ExpoBlurView
+            intensity={Platform.OS === 'ios' ? 80 : 100}
+            tint={tint}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+        tabBarActiveTintColor: brownGold,
+        tabBarInactiveTintColor: "#94A3B8",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "500",
+          marginBottom: Platform.OS === 'ios' ? 0 : 10,
+          padding: 6
+        },
+      }}
     >
-      <NativeTabs.Trigger name="(home)">
-        {Platform.select({
-          ios: <Icon sf="house.fill" />,
-          android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="home" />} />
+      <Tabs.Screen
+        name="(home)"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, focused }) => (
+            <View style={styles.iconContainer}>
+              {focused && <View style={styles.activeIndicator} />}
+              <Home size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
           ),
-        })}
-        <Label>Home</Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="booking">
-        {Platform.select({
-          ios: <Icon sf="calendar" />,
-          android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="calendar" />} />
+        }}
+      />
+      <Tabs.Screen
+        name="booking"
+        options={{
+          title: "Booking",
+          tabBarIcon: ({ color, focused }) => (
+            <View style={styles.iconContainer}>
+              {focused && <View style={styles.activeIndicator} />}
+              <Calendar size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
           ),
-        })}
-        <Label>Booking</Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="access">
-        {Platform.select({
-          ios: <Icon sf="key.fill" />,
-          android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="key" />} />
+        }}
+      />
+      <Tabs.Screen
+        name="access"
+        options={{
+          title: "Access",
+          tabBarIcon: ({ color, focused }) => (
+            <View style={styles.iconContainer}>
+              {focused && <View style={styles.activeIndicator} />}
+              <Key size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
           ),
-        })}
-        <Label>Access</Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="profile">
-        {Platform.select({
-          ios: <Icon sf="person.fill" />,
-          android: (
-            <Icon src={<VectorIcon family={MaterialIcons} name="user" />} />
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, focused }) => (
+            <View style={styles.iconContainer}>
+              {focused && <View style={styles.activeIndicator} />}
+              <User size={24} color={color} strokeWidth={focused ? 2.5 : 2} />
+            </View>
           ),
-        })}
-        <Label>Profile</Label>
-      </NativeTabs.Trigger>
-    </NativeTabs>
+        }}
+      />
+    </Tabs>
   );
 }
 
-const createStyles = (primary: string, foreground: string) => ({
-  labelStyle: {
-    default: { color: primary },
-    selected: { color: foreground },
+const styles = StyleSheet.create({
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 8,
   },
-  iconColor: {
-    default: primary,
-    selected: foreground,
-  }
+  activeIndicator: {
+    position: 'absolute',
+    top: -6,
+    width: 48,
+    height: 3,
+    backgroundColor: "#9B7C56",
+    borderRadius: 2,
+  },
 });

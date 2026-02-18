@@ -28,6 +28,13 @@
       "favicon": "./assets/images/icon.png"
     },
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Heaven Wellness to access your photos to upload your profile picture.",
+          "cameraPermission": "Allow Heaven Wellness to access your camera to take a profile picture."
+        }
+      ],
       "expo-asset",
       "expo-router",
       "expo-web-browser",

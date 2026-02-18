@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Card } from "@/components/ui/card";
@@ -44,7 +45,7 @@ export default function BookingDetailsScreen() {
   return (
     <View style={styles.container}>
 
-      <ScreenView>
+      <Layout>
         <Text style={styles.screenTitle}>Booking Details</Text>
 
         <Card style={styles.infoCard}>
@@ -169,7 +170,7 @@ export default function BookingDetailsScreen() {
             <Text style={styles.cancelLinkText}>Cancel This Booking</Text>
           </Pressable>
         </Card>
-      </ScreenView>
+      </Layout>
 
       <Modal visible={showCancelModal} transparent animationType="fade">
         <View style={styles.modalOverlay}>

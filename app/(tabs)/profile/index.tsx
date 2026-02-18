@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
@@ -31,7 +32,7 @@ export default function ProfileScreen() {
   const [pushEnabled, setPushEnabled] = useState(false);
 
   return (
-    <ScreenView safe padding={24}>
+    <Layout>
       {/* User Info Header */}
       <View style={styles.header}>
         <Image
@@ -127,7 +128,7 @@ export default function ProfileScreen() {
         <LogOut size={20} color={red} />
         <Text style={styles.logoutText}>Log Out</Text>
       </Pressable>
-    </ScreenView>
+    </Layout>
   );
 }
 
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 16,
     marginBottom: 32,
+    paddingTop: 12,
   },
   avatar: {
     width: 80,

@@ -22,8 +22,11 @@ import { router } from 'expo-router';
 import React from "react";
 import { Platform, Pressable, StyleSheet } from "react-native";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Layout } from "@/components/layout/Layout";
 
 export default function HomeScreen() {
+  const insets = useSafeAreaInsets();
   const primary = useColor("primary");
   const background = useColor("background");
   const textMuted = useColor("textMuted");
@@ -40,13 +43,14 @@ export default function HomeScreen() {
     primary,
     brownGold,
     lightBeige,
+    insets,
   );
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-      showsVerticalScrollIndicator={false}
+    <Layout
+      // style={styles.container}
+      // contentContainerStyle={styles.contentContainer}
+      // showsVerticalScrollIndicator={false}
     >
       {/* Header */}
       <View style={styles.header}>
@@ -172,7 +176,7 @@ export default function HomeScreen() {
           <ChevronRight size={20} color={textMuted} />
         </Card>
       </View>
-    </ScrollView>
+    </Layout>
   );
 }
 
@@ -224,16 +228,13 @@ const createStyles = (
   primary: string,
   brownGold: string,
   lightBeige: string,
+  insets: any,
 ) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: background,
     },
     contentContainer: {
-      padding: 24,
-      paddingTop: Platform.OS === "ios" ? 20 : 50,
-      paddingBottom: 40,
       gap: 24,
     },
     header: {

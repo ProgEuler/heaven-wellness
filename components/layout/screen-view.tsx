@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ViewProps, ScrollViewProps } from 'react-native';
+import { StyleSheet, ViewProps, ScrollViewProps, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColor } from '@/hooks/useColor';
 import { ScrollView } from '../ui/scroll-view';
@@ -30,20 +30,22 @@ export function ScreenView({
   const containerStyle = [
     styles.container,
     { backgroundColor: background },
-    safe && {
-      paddingTop: insets.top - 30,
-      paddingBottom: insets.bottom
-    },
-    !scrollable && padding && { paddingHorizontal: horizontalPadding },
     style
   ];
+
+  const contentPaddingBottom = insets.bottom + (Platform.OS === 'ios' ? 90 : 70);
+  const contentPaddingTop = safe ? insets.top : 0;
 
   if (scrollable) {
     return (
       <ScrollView
         style={containerStyle}
         contentContainerStyle={[
-          padding && { paddingHorizontal: horizontalPadding, paddingVertical: 24 },
+          {
+            paddingHorizontal: horizontalPadding,
+            paddingTop: padding ? 24 + contentPaddingTop : contentPaddingTop,
+            paddingBottom: padding ? 24 + contentPaddingBottom : contentPaddingBottom
+          },
           contentContainerStyle
         ]}
         showsVerticalScrollIndicator={false}
@@ -54,7 +56,14 @@ export function ScreenView({
   }
 
   return (
-    <View style={containerStyle}>
+    <View style={[
+      containerStyle,
+      {
+        paddingHorizontal: horizontalPadding,
+        paddingTop: contentPaddingTop,
+        paddingBottom: contentPaddingBottom
+      }
+    ]}>
       {children}
     </View>
   );

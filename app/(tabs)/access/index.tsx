@@ -10,6 +10,7 @@ import { Alert, Pressable, StyleSheet } from "react-native";
 import * as Clipboard from 'expo-clipboard';
 import { toast } from "sonner-native";
 import { useToast } from "@/components/ui/toast";
+import { Layout } from "@/components/layout/Layout";
 
 export default function AccessScreen() {
   const textMuted = useColor("textMuted");
@@ -39,13 +40,13 @@ showToast()
   const showToast = () => {
     toast({
       title: 'Success!',
-      description: 'Your changes have been saved.',
+      description: 'Capied SRN-2468',
       variant: 'success',
     });
   };
 
   return (
-    <ScreenView safe padding={24}>
+    <Layout>
       {/* <View style={styles.header}>
         <Text style={styles.title}>Access Codes</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
@@ -89,7 +90,7 @@ showToast()
           </Text>
         </View>
       </Card>
-    </ScreenView>
+    </Layout>
   );
 }
 

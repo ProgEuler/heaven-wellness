@@ -23,6 +23,8 @@ SplashScreen.setOptions({
   fade: true,
 });
 
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
 export default function RootLayout() {
   const colorScheme = useColorScheme() || "light";
   const primary = useColor("primary")
@@ -43,73 +45,75 @@ export default function RootLayout() {
   }, [colorScheme]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} animated />
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider>
+          <StatusBar style={colorScheme === "dark" ? "light" : "dark"} animated />
 
-        <ToastProvider>
+          <ToastProvider>
 
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(booking)" options={{ headerShown: false }} />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(booking)" options={{ headerShown: false }} />
 
-          <Stack.Screen
-            name="sheet"
-            options={{
-              headerShown: false,
-              sheetGrabberVisible: true,
-              sheetAllowedDetents: [0.4, 0.7, 1],
-              contentStyle: {
-                backgroundColor: isLiquidGlassAvailable()
-                  ? "transparent"
-                  : colorScheme === "dark"
-                    ? Colors.dark.card
-                    : Colors.light.card,
-              },
-              headerTransparent: Platform.OS === "ios" ? true : false,
-              headerLargeTitle: false,
-              title: "",
-              presentation:
-                Platform.OS === "ios"
-                  ? isLiquidGlassAvailable() && osName !== "iPadOS"
-                    ? "formSheet"
-                    : "modal"
-                  : "modal",
-              sheetInitialDetentIndex: 0,
-              headerStyle: {
-                backgroundColor:
-                  Platform.OS === "ios"
+            <Stack.Screen
+              name="sheet"
+              options={{
+                headerShown: false,
+                sheetGrabberVisible: true,
+                sheetAllowedDetents: [0.4, 0.7, 1],
+                contentStyle: {
+                  backgroundColor: isLiquidGlassAvailable()
                     ? "transparent"
                     : colorScheme === "dark"
                       ? Colors.dark.card
                       : Colors.light.card,
+                },
+                headerTransparent: Platform.OS === "ios" ? true : false,
+                headerLargeTitle: false,
+                title: "",
+                presentation:
+                  Platform.OS === "ios"
+                    ? isLiquidGlassAvailable() && osName !== "iPadOS"
+                      ? "formSheet"
+                      : "modal"
+                    : "modal",
+                sheetInitialDetentIndex: 0,
+                headerStyle: {
+                  backgroundColor:
+                    Platform.OS === "ios"
+                      ? "transparent"
+                      : colorScheme === "dark"
+                        ? Colors.dark.card
+                        : Colors.light.card,
+                },
+                headerBlurEffect: isLiquidGlassAvailable()
+                  ? undefined
+                  : colorScheme === "dark"
+                    ? "dark"
+                    : "light",
+              }}
+            />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <Toaster
+            position="bottom-center"
+            swipeToDismissDirection="left"
+            richColors
+            toastOptions={{
+              style: {
+                borderWidth: 0,
               },
-              headerBlurEffect: isLiquidGlassAvailable()
-                ? undefined
-                : colorScheme === "dark"
-                  ? "dark"
-                  : "light",
+              success: { backgroundColor: primary },
+              // warning: { backgroundColor: colors.dark.warning },
+              // error: { backgroundColor: colors.dark.danger },
+              titleStyle: { color: "#fff" },
             }}
           />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <Toaster
-          position="bottom-center"
-          swipeToDismissDirection="left"
-          richColors
-          toastOptions={{
-            style: {
-              borderWidth: 0,
-            },
-            success: { backgroundColor: primary },
-            // warning: { backgroundColor: colors.dark.warning },
-            // error: { backgroundColor: colors.dark.danger },
-            titleStyle: { color: "#fff" },
-          }}
-        />
-        </ToastProvider>
-      </ThemeProvider>
-    </GestureHandlerRootView>
+          </ToastProvider>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }

@@ -1,4 +1,6 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
+import { Avatar } from "@/components/shared/avatar";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,8 +13,10 @@ import { router } from "expo-router";
 import { Camera } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function EditProfileScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
 
   const [name, setName] = useState("Akash");
@@ -20,15 +24,10 @@ export default function EditProfileScreen() {
   const [phone, setPhone] = useState("+1234567890");
 
   return (
-    <View style={styles.container}>
-      <ScreenView safe={false}>
-        {/* <Text style={styles.title}>Profile</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Manage your personal information
-        </Text> */}
+      <Layout>
 
         <View style={styles.avatarSection}>
-          <View>
+          {/* <View>
             <Image
               source="https://i.pravatar.cc/150?u=akash"
               style={styles.avatar}
@@ -36,7 +35,8 @@ export default function EditProfileScreen() {
             <Pressable style={styles.cameraButton}>
               <Camera size={20} color="black" />
             </Pressable>
-          </View>
+          </View> */}
+          <Avatar editable={true} />
         </View>
 
         <View style={styles.form}>
@@ -84,8 +84,7 @@ export default function EditProfileScreen() {
           </Button>
           <Button onPress={() => router.back()}>Save Changes</Button>
         </View>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 

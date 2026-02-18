@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Text } from "@/components/ui/text";
@@ -6,14 +7,14 @@ import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TermsConditionsScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
 
   return (
-    <View style={styles.container}>
-      <BackHeader />
-      <ScreenView safe={false} contentContainerStyle={{ paddingTop: 100 }}>
+      <Layout>
         <Text style={styles.title}>Terms Conditions</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
           Effective Date: Oct 1, 2025
@@ -43,8 +44,7 @@ export default function TermsConditionsScreen() {
             OasisFeels is not responsible for incidents occurring during physical events. Users attend events at their own discretion.
           </Text>
         </View>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 

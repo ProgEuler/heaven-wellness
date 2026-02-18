@@ -1,4 +1,6 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
+import { Avatar } from "@/components/shared/avatar";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,24 +12,18 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, TextInput } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PreviewProfileScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
   const border = useColor("border");
 
   return (
-    <View style={styles.container}>
-      <ScreenView safe={false}>
-        {/* <Text style={styles.title}>Profile</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Manage your personal information
-        </Text> */}
-
+<Layout>
+   {/* <Text>manage your personal information</Text> */}
         <View style={styles.avatarSection}>
-          <Image
-            source="https://i.pravatar.cc/150?u=akash"
-            style={styles.avatar}
-          />
+          <Avatar editable={false} />
         </View>
 
         <View style={styles.infoSection}>
@@ -40,8 +36,7 @@ export default function PreviewProfileScreen() {
         <Button onPress={() => router.push("/(tabs)/profile/edit")}>
           Edit Profile
         </Button>
-      </ScreenView>
-    </View>
+        </Layout>
   );
 }
 

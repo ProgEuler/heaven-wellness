@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Text } from "@/components/ui/text";
@@ -6,17 +7,14 @@ import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PrivacyPolicyScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
 
   return (
-    <View style={styles.container}>
-      <ScreenView safe={false}>
-        <Text style={styles.title}>Privacy Policy</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Effective Date: Oct 1, 2025
-        </Text>
+      <Layout>
 
         <View style={styles.section}>
           <Text style={styles.sectionHeading}>Privacy Policy</Text>
@@ -42,8 +40,7 @@ export default function PrivacyPolicyScreen() {
             We use industry-standard encryption to protect your data. Payment information is handled through secure providers like Stripe.
           </Text>
         </View>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 

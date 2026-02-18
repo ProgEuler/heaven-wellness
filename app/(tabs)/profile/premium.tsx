@@ -1,3 +1,4 @@
+import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
@@ -9,19 +10,17 @@ import { Fonts } from "@/theme/colors";
 import { Check, ArrowRight } from "lucide-react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PremiumMemberScreen() {
+  const insets = useSafeAreaInsets();
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
   const lightBeige = "#FCF2E9";
 
   return (
-    <View style={styles.container}>
-      <ScreenView safe={false}>
-        <Text style={styles.title}>Premium member</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Apply now your premium member
-        </Text>
+
+      <Layout>
 
         <View style={styles.plans}>
           <PlanCard
@@ -45,8 +44,7 @@ export default function PremiumMemberScreen() {
             ]}
           />
         </View>
-      </ScreenView>
-    </View>
+      </Layout>
   );
 }
 
