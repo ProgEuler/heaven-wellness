@@ -43,7 +43,6 @@ export default function BookingDetailsScreen() {
 
   return (
     <View style={styles.container}>
-      <BackHeader />
 
       <ScreenView>
         <Text style={styles.screenTitle}>Booking Details</Text>

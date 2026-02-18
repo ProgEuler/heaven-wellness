@@ -132,7 +132,7 @@ export default function MyReservationsScreen() {
   );
 
   return (
-    <ScreenView safe padding={false}>
+    <ScreenView padding={false}>
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <View style={{ flex: 1 }}>

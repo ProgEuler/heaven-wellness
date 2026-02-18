@@ -30,10 +30,10 @@ export default function SettingsLayout() {
       <Stack.Screen
         name='index'
         options={{
-          title: 'Access',
+          title: 'Access Codes',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <Text variant='heading'>Access</Text>
+              <Text variant='heading'>Booking</Text>
             ) : undefined,
         }}
       />

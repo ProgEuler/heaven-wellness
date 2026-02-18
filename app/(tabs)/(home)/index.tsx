@@ -21,6 +21,7 @@ import {
 import { router } from 'expo-router';
 import React from "react";
 import { Platform, Pressable, StyleSheet } from "react-native";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export default function HomeScreen() {
   const primary = useColor("primary");
@@ -61,9 +62,11 @@ export default function HomeScreen() {
             <Text style={styles.userName}>Akash</Text>
           </View>
         </View>
-        <Pressable style={styles.notificationButton}>
+        <Pressable style={styles.notificationButton} onPress={() => router.push("/notifications")}>
           <Icon name={Bell} size={24} color={primary} />
         </Pressable>
+
+        {/* <ModeToggle /> */}
       </View>
 
       <Text style={styles.journeyText}>
@@ -110,7 +113,10 @@ export default function HomeScreen() {
             iconBg={lightBeige}
           />
 
-          <Button style={styles.viewDetailsButton}>
+          <Button
+            style={styles.viewDetailsButton}
+            onPress={() => router.push('/(tabs)/booking/1')}
+          >
             <Text style={styles.viewDetailsText}>View Details</Text>
             <ChevronRight size={18} color={primary} />
           </Button>
@@ -132,7 +138,10 @@ export default function HomeScreen() {
               labelBg={lightBeige}
             />
           </Pressable>
-          <Pressable style={{ flex: 1 }}>
+          <Pressable
+            style={{ flex: 1 }}
+            onPress={() => router.push('/(tabs)/booking')}
+          >
             <ActionCard
               icon={Calendar}
               title="My Bookings"

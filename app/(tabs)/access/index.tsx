@@ -1,102 +1,176 @@
-import { Card } from '@/components/ui/card';
-import { Icon } from '@/components/ui/icon';
-import { ModeToggle } from '@/components/ui/mode-toggle';
-import { ScrollView } from '@/components/ui/scroll-view';
-import { Text } from '@/components/ui/text';
-import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
-import { Code, Eye, Palette, Settings } from 'lucide-react-native';
-import { StyleSheet } from 'react-native';
+import { Card } from "@/components/ui/card";
+import { ScreenView } from "@/components/layout/screen-view";
+import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
+import { useColor } from "@/hooks/useColor";
+import { Fonts } from "@/theme/colors";
+import { Copy, Info, Key, Zap } from "lucide-react-native";
+import React from "react";
+import { Pressable, StyleSheet } from "react-native";
 
 export default function AccessScreen() {
-  const primary = useColor('primary');
+  const textMuted = useColor("textMuted");
+  const brownGold = "#9B7C56";
+  const lightBeige = "#FCF2E9";
+  const lightBlue = "#EFF6FF";
+  const blueText = "#1D4ED8";
+  const border = useColor("border");
+
+  // Mock data for the access code
+  const booking = {
+    title: "Private Sauna",
+    status: "Upcoming",
+    date: "Sunday, 15 February 2026",
+    time: "10:00 AM",
+    accessCode: "SRN-2468",
+  };
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
-      <ModeToggle />
-
-      <View style={styles.section}>
-        <Text variant='title' style={styles.title}>
-          Access Control
+    <ScreenView safe padding={24}>
+      {/* <View style={styles.header}>
+        <Text style={styles.title}>Access Codes</Text>
+        <Text style={[styles.subtitle, { color: textMuted }]}>
+          Your sauna access information
         </Text>
+      </View> */}
 
-        <View style={styles.featuresList}>
-          {features.map((feature, index) => (
-            <Card key={index} style={styles.featureCard}>
-              <Icon name={feature.icon} size={24} color={primary} />
-
-              <View style={styles.featureText}>
-                <Text variant='body' style={styles.featureTitle}>
-                  {feature.title}
-                </Text>
-                <Text variant='caption'>{feature.description}</Text>
-              </View>
-            </Card>
-          ))}
+      <Card style={[styles.mainCard, { borderColor: border }]}>
+        <View style={styles.cardHeader}>
+          <View>
+            <Text style={styles.serviceTitle}>{booking.title}</Text>
+            <Text variant="caption" style={{ color: textMuted }}>
+              {booking.date} at {booking.time}
+            </Text>
+          </View>
+          <View style={styles.statusBadge}>
+            <Text style={styles.statusText}>{booking.status}</Text>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+
+        <View style={[styles.codeCard, { backgroundColor: brownGold }]}>
+          <View style={styles.codeHeader}>
+            <Key size={20} color="white" opacity={0.8} />
+            <Text style={styles.codeLabel}>Your Access Code</Text>
+          </View>
+
+          <View style={styles.codeRow}>
+            <Text style={styles.codeValue}>{booking.accessCode}</Text>
+            <Pressable style={styles.copyButton}>
+              <Copy size={16} color="#fff" />
+              <Text style={styles.copyText}>Copy</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        <View style={[styles.infoBox, { backgroundColor: lightBlue }]}>
+          <Info size={18} color={blueText} />
+          <Text style={[styles.infoText, { color: blueText }]}>
+            Your access code becomes active during your reserved time. Please
+            keep it safe and present it upon arrival.
+          </Text>
+        </View>
+      </Card>
+    </ScreenView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    flex: 1,
-    gap: 18,
-    paddingTop: 96,
-    alignItems: 'center',
-  },
-  section: {
-    width: '90%',
-    marginBottom: 40,
+  header: {
+    marginBottom: 32,
   },
   title: {
-    textAlign: 'center',
-    marginBottom: 24,
-    fontWeight: '700',
+    fontSize: 32,
+    fontWeight: "700",
+    fontFamily: Fonts.serif,
+    marginBottom: 8,
   },
-  featuresList: {
-    gap: 12,
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 22,
   },
-  featureCard: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
+  mainCard: {
+    gap: 24,
   },
-  featureText: {
-    flex: 1,
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
-  featureTitle: {
-    fontWeight: '600',
+  serviceTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    fontFamily: Fonts.serif,
     marginBottom: 4,
   },
+  statusBadge: {
+    backgroundColor: "#F0FDF4",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 14,
+    left: -28
+  },
+  statusText: {
+    fontSize: 12,
+    color: "#166534",
+    fontWeight: "700",
+  },
+  codeCard: {
+    padding: 24,
+    borderRadius: 20,
+    gap: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  codeHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  codeLabel: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "600",
+    opacity: 0.9,
+  },
+  codeRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  codeValue: {
+    fontSize: 32,
+    fontWeight: "700",
+    color: "white",
+    letterSpacing: 2,
+    fontFamily: Fonts.serif,
+  },
+  copyButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 14,
+    gap: 8,
+  },
+  copyText: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#fff",
+  },
+  infoBox: {
+    flexDirection: "row",
+    padding: 20,
+    borderRadius: 16,
+    gap: 12,
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: "500",
+  },
 });
-
-const features = [
-  {
-    title: 'Live Preview',
-    description: 'See components in action with real-time demos',
-    icon: Eye,
-  },
-  {
-    title: 'Code Examples',
-    description: 'Copy-paste ready code snippets',
-    icon: Code,
-  },
-  {
-    title: 'Customizable',
-    description: 'Easy to customize with your brand colors',
-    icon: Palette,
-  },
-  {
-    title: 'Accessible',
-    description: 'Built with accessibility in mind',
-    icon: Settings,
-  },
-];
