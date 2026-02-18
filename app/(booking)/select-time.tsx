@@ -1,46 +1,62 @@
-import { BookingHeader } from '@/components/booking-header';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { ScrollView } from '@/components/ui/scroll-view';
-import { Text } from '@/components/ui/text';
-import { View } from '@/components/ui/view';
-import { useColor } from '@/hooks/useColor';
-import { Fonts } from '@/theme/colors';
-import { router, useLocalSearchParams } from 'expo-router';
-import { Clock, ArrowRight, TimerResetIcon } from 'lucide-react-native';
-import React, { useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BackHeader } from "@/components/shared/booking-header";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ScrollView } from "@/components/ui/scroll-view";
+import { Text } from "@/components/ui/text";
+import { View } from "@/components/ui/view";
+import { useColor } from "@/hooks/useColor";
+import { Fonts } from "@/theme/colors";
+import { router, useLocalSearchParams } from "expo-router";
+import { Clock, ArrowRight, TimerResetIcon } from "lucide-react-native";
+import React, { useState } from "react";
+import { Pressable, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const TIME_SLOTS = [
-  '8:00 AM', '9:00 AM', '10:00 AM',
-  '11:00 AM', '12:00 PM', '1:00 PM',
-  '2:00 PM', '3:00 PM', '4:00 PM',
-  '5:00 PM', '6:00 PM'
+  "8:00 AM",
+  "9:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+  "3:00 PM",
+  "4:00 PM",
+  "5:00 PM",
+  "6:00 PM",
 ];
 
 export default function SelectTimeScreen() {
-   const { date } = useLocalSearchParams()
-  const [selectedTime, setSelectedTime] = useState('12:00 PM');
-  const background = useColor('background');
-  const textMuted = useColor('textMuted');
-  const brownGold = '#9B7C56';
+  const { date } = useLocalSearchParams();
+  const [selectedTime, setSelectedTime] = useState("12:00 PM");
+  const background = useColor("background");
+  const textMuted = useColor("textMuted");
+  const brownGold = "#9B7C56";
   const insets = useSafeAreaInsets();
   const headerHeight = insets.top + 60;
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      <BookingHeader />
+      <BackHeader />
 
-      <ScrollView contentContainerStyle={[styles.scrollContent, { paddingTop: headerHeight }]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: headerHeight },
+        ]}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Select Time</Text>
-          <Text style={[styles.subtitle, { color: textMuted }]}>Choose your preferred time slot</Text>
+          <Text style={[styles.subtitle, { color: textMuted }]}>
+            Choose your preferred time slot
+          </Text>
         </View>
 
         <Card style={styles.dateInfoCard}>
-           <Text variant="caption" style={{ color: textMuted }}>Selected Date</Text>
-           <Text style={styles.dateValue}>{date}</Text>
+          <Text variant="caption" style={{ color: textMuted }}>
+            Selected Date
+          </Text>
+          <Text style={styles.dateValue}>{date}</Text>
         </Card>
 
         <View style={styles.grid}>
@@ -51,15 +67,19 @@ export default function SelectTimeScreen() {
                 key={time}
                 style={[
                   styles.timeSlot,
-                  isSelected ? { backgroundColor: '#D4C4B0' } : { backgroundColor: '#ECEEF1' }
+                  isSelected
+                    ? { backgroundColor: "#D4C4B0" }
+                    : { backgroundColor: "#ECEEF1" },
                 ]}
                 onPress={() => setSelectedTime(time)}
               >
-                <Clock size={18} color={isSelected ? brownGold : '#71717A'} />
-                <Text style={[
-                  styles.timeText,
-                  isSelected && { color: 'black', fontWeight: '700' }
-                ]}>
+                <Clock size={18} color={isSelected ? brownGold : "#71717A"} />
+                <Text
+                  style={[
+                    styles.timeText,
+                    isSelected && { color: "black", fontWeight: "700" },
+                  ]}
+                >
                   {time}
                 </Text>
               </Pressable>
@@ -68,21 +88,25 @@ export default function SelectTimeScreen() {
         </View>
 
         <Card style={styles.selectionSummary}>
-          <Text variant="caption" style={{ color: textMuted }}>Selected Time</Text>
+          <Text variant="caption" style={{ color: textMuted }}>
+            Selected Time
+          </Text>
           <Text style={styles.summaryValue}>{selectedTime}</Text>
         </Card>
       </ScrollView>
 
-      <View style={[styles.footer, { borderTopColor: useColor('border') }]}>
+      <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
         <Button
           style={styles.continueButton}
-          onPress={() => router.push({
-            pathname: '/(booking)/guests',
-            params: {
-               date,
-               time: selectedTime,
-            }
-          })}
+          onPress={() =>
+            router.push({
+              pathname: "/(booking)/guests",
+              params: {
+                date,
+                time: selectedTime,
+              },
+            })
+          }
         >
           <Text style={styles.buttonText}>Continue to Guests</Text>
           <ArrowRight size={18} color="white" />
@@ -105,7 +129,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: '700',
+    fontWeight: "700",
     fontFamily: Fonts.serif,
     marginBottom: 8,
   },
@@ -120,26 +144,26 @@ const styles = StyleSheet.create({
   },
   dateValue: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     fontFamily: Fonts.serif,
   },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   timeSlot: {
-    width: '31%',
+    width: "31%",
     height: 80,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     gap: 8,
   },
   timeText: {
     fontSize: 14,
-    color: '#71717A',
+    color: "#71717A",
   },
   selectionSummary: {
     marginTop: 20,
@@ -149,7 +173,7 @@ const styles = StyleSheet.create({
   },
   summaryValue: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     fontFamily: Fonts.serif,
   },
   footer: {
@@ -158,17 +182,17 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   continueButton: {
-    backgroundColor: '#9B7C56',
+    backgroundColor: "#9B7C56",
     borderRadius: 30,
     height: 56,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 8,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: "700",
   },
 });

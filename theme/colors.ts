@@ -37,7 +37,7 @@ export const lightColors = {
 
   // Primary colors
   primary: '#CFB9A3',
-  primaryForeground: '#FFFFFF',
+  primaryForeground: '#000',
 
   // Secondary colors
   secondary: '#E8DFD5',

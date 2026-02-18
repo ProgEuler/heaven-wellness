@@ -6,7 +6,7 @@ NavigationBar.setButtonStyleAsync('light');
 export default function IndexScreen() {
   return (
     <Redirect
-      href={"/(tabs)/(home)"}
+      href={"/(tabs)/booking/"}
     />
   );
 }

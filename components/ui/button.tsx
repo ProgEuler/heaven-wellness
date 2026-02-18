@@ -2,7 +2,7 @@ import { Icon } from '@/components/ui/icon';
 import { ButtonSpinner, SpinnerVariant } from '@/components/ui/spinner';
 import { Text } from '@/components/ui/text';
 import { useColor } from '@/hooks/useColor';
-import { Colors } from '@/theme/colors';
+import { Colors, Fonts } from '@/theme/colors';
 import { CORNERS, FONT_SIZE, HEIGHT } from '@/theme/globals';
 import * as Haptics from 'expo-haptics';
 import { LucideProps } from 'lucide-react-native';
@@ -140,6 +140,7 @@ export const Button = forwardRef<View, ButtonProps>(
       const baseTextStyle: TextStyle = {
         fontSize: FONT_SIZE,
         fontWeight: '500',
+        fontFamily: Fonts.serif
       };
 
       switch (variant) {

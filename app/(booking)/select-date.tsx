@@ -1,4 +1,4 @@
-import { BookingHeader } from "@/components/booking-header";
+import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollView } from "@/components/ui/scroll-view";
@@ -67,7 +67,7 @@ export default function SelectDateScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      <BookingHeader />
+      <BackHeader />
 
       <ScrollView
         contentContainerStyle={[
@@ -93,8 +93,14 @@ export default function SelectDateScreen() {
                 <Text style={styles.monthName}>{month}</Text>
 
                 {/* 👇 Your extra text here */}
-                <View style={{ flexDirection: 'row', gap: 18, marginTop: 12}}>
-                  <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center'}}>
+                <View style={{ flexDirection: "row", gap: 18, marginTop: 12 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 8,
+                      alignItems: "center",
+                    }}
+                  >
                     <View
                       style={{
                         width: 12,
@@ -105,9 +111,23 @@ export default function SelectDateScreen() {
                         borderColor: "#F9E4D0",
                       }}
                     />
-                    <Text style={{ fontFamily: Fonts.serif, fontSize: 14, color: textMuted}}>Available</Text>
+                    <Text
+                      style={{
+                        fontFamily: Fonts.serif,
+                        fontSize: 14,
+                        color: textMuted,
+                      }}
+                    >
+                      Available
+                    </Text>
                   </View>
-                  <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center'}}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 8,
+                      alignItems: "center",
+                    }}
+                  >
                     <View
                       style={{
                         width: 12,
@@ -116,7 +136,15 @@ export default function SelectDateScreen() {
                         backgroundColor: border,
                       }}
                     />
-                    <Text style={{ fontFamily: Fonts.serif, fontSize: 14, color: textMuted}}>Booked</Text>
+                    <Text
+                      style={{
+                        fontFamily: Fonts.serif,
+                        fontSize: 14,
+                        color: textMuted,
+                      }}
+                    >
+                      Booked
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -177,10 +205,14 @@ export default function SelectDateScreen() {
       </ScrollView>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
-        <Button onPress={() => router.push({
-         pathname: "/(booking)/select-time",
-         params: { date: selectedDate }
-        })}>
+        <Button
+          onPress={() =>
+            router.push({
+              pathname: "/(booking)/select-time",
+              params: { date: selectedDate },
+            })
+          }
+        >
           <Text>Continue to Time Selection</Text>
           <ArrowRight size={18} />
         </Button>

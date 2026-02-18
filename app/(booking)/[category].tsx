@@ -1,4 +1,4 @@
-import { BookingHeader } from "@/components/booking-header";
+import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollView } from "@/components/ui/scroll-view";
@@ -125,7 +125,7 @@ export default function CategoryScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
-      <BookingHeader />
+      <BackHeader />
 
       <ScrollView
         contentContainerStyle={[
