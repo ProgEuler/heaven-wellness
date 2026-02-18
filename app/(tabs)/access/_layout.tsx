@@ -20,6 +20,7 @@ export default function SettingsLayout() {
           : theme === 'dark'
             ? 'systemMaterialDark'
             : 'systemMaterialLight',
+        headerShown: Platform.OS !== 'android',
         headerStyle: {
           backgroundColor: isLiquidGlassAvailable()
             ? 'transparent'

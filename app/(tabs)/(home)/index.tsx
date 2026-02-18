@@ -18,7 +18,7 @@ import {
   ChevronRight,
   Plus,
 } from "lucide-react-native";
-import { router } from 'expo-router';
+import { router } from "expo-router";
 import React from "react";
 import { Platform, Pressable, StyleSheet } from "react-native";
 import { ModeToggle } from "@/components/ui/mode-toggle";
@@ -47,11 +47,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <Layout
-      // style={styles.container}
-      // contentContainerStyle={styles.contentContainer}
-      // showsVerticalScrollIndicator={false}
-    >
+    <Layout title="Home">
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.userInfo}>
@@ -66,7 +62,10 @@ export default function HomeScreen() {
             <Text style={styles.userName}>Akash</Text>
           </View>
         </View>
-        <Pressable style={styles.notificationButton} onPress={() => router.push("/notifications")}>
+        <Pressable
+          style={styles.notificationButton}
+          onPress={() => router.push("/notifications")}
+        >
           <Icon name={Bell} size={24} color={primary} />
         </Pressable>
 
@@ -119,7 +118,7 @@ export default function HomeScreen() {
 
           <Button
             style={styles.viewDetailsButton}
-            onPress={() => router.push('/(tabs)/booking/1')}
+            onPress={() => router.push("/(tabs)/booking/1")}
           >
             <Text style={styles.viewDetailsText}>View Details</Text>
             <ChevronRight size={18} color={primary} />
@@ -133,7 +132,7 @@ export default function HomeScreen() {
         <View style={styles.quickActionsGrid}>
           <Pressable
             style={{ flex: 1 }}
-            onPress={() => router.push('/(booking)')}
+            onPress={() => router.push("/(booking)")}
           >
             <ActionCard
               icon={Plus}
@@ -144,7 +143,7 @@ export default function HomeScreen() {
           </Pressable>
           <Pressable
             style={{ flex: 1 }}
-            onPress={() => router.push('/(tabs)/booking')}
+            onPress={() => router.push("/(tabs)/booking")}
           >
             <ActionCard
               icon={Calendar}

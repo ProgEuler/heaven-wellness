@@ -11,6 +11,7 @@ import * as Clipboard from 'expo-clipboard';
 import { toast } from "sonner-native";
 import { useToast } from "@/components/ui/toast";
 import { Layout } from "@/components/layout/Layout";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccessScreen() {
   const textMuted = useColor("textMuted");
@@ -46,13 +47,13 @@ showToast()
   };
 
   return (
-    <Layout>
-      {/* <View style={styles.header}>
+    <Layout title="Access Token">
+      <View style={styles.header}>
         <Text style={styles.title}>Access Codes</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
           Your sauna access information
         </Text>
-      </View> */}
+      </View>
 
       <Card style={[styles.mainCard, { borderColor: border }]}>
         <View style={styles.cardHeader}>

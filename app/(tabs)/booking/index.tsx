@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
+import { BackHeader } from "@/components/shared/booking-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
@@ -75,6 +76,39 @@ export default function MyReservationsScreen() {
       status: "Upcoming",
       type: "launchroom"
     },
+    {
+      id: "2",
+      title: "Lunchroom Reservation",
+      category: "Restaurant",
+      date: "20 Feb 2026",
+      time: "1:00 AM",
+      guests: "4 guests",
+      paymentStatus: "Pay on arrival",
+      status: "Upcoming",
+      type: "launchroom"
+    },
+    {
+      id: "2",
+      title: "Lunchroom Reservation",
+      category: "Restaurant",
+      date: "20 Feb 2026",
+      time: "1:00 AM",
+      guests: "4 guests",
+      paymentStatus: "Pay on arrival",
+      status: "Upcoming",
+      type: "launchroom"
+    },
+    {
+      id: "2",
+      title: "Lunchroom Reservation",
+      category: "Restaurant",
+      date: "20 Feb 2026",
+      time: "1:00 AM",
+      guests: "4 guests",
+      paymentStatus: "Pay on arrival",
+      status: "Upcoming",
+      type: "launchroom"
+    },
   ];
 
   const renderBookingCard = (booking: (typeof upcomingBookings)[0]) => (
@@ -133,7 +167,7 @@ export default function MyReservationsScreen() {
   );
 
   return (
-    <Layout>
+    <Layout title="Booking">
       <View>
         <View style={styles.headerTop}>
           <View style={{ flex: 1 }}>

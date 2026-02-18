@@ -25,7 +25,7 @@ export default function LanguageScreen() {
 
   return (
 
-      <Layout>
+      <Layout title="Language">
         <Text style={styles.title}>Choose Your Language</Text>
         <Text style={[styles.subtitle, { color: textMuted }]}>
           Select your preferred language

@@ -44,7 +44,7 @@ export default function BookingDetailsScreen() {
 
   return (
     <View style={styles.container}>
-
+      <BackHeader />
       <Layout>
         <Text style={styles.screenTitle}>Booking Details</Text>
 
@@ -234,10 +234,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     fontFamily: Fonts.serif,
+    marginTop: 36
   },
   infoCard: {
-    marginTop: 24,
-    marginBottom: 20,
+   //  marginTop: 24,
+   //  marginBottom: 20,
     gap: 20,
   },
   serviceTitle: {
@@ -314,7 +315,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   paymentCard: {
-    marginBottom: 24,
+   //  marginBottom: 24,
   },
   paymentHeader: {
     marginBottom: 16,

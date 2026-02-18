@@ -24,7 +24,7 @@ export default function EditProfileScreen() {
   const [phone, setPhone] = useState("+1234567890");
 
   return (
-      <Layout>
+      <Layout title="Edit Profile">
 
         <View style={styles.avatarSection}>
           {/* <View>

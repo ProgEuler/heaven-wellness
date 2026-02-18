@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
@@ -32,7 +33,7 @@ export default function ProfileScreen() {
   const [pushEnabled, setPushEnabled] = useState(false);
 
   return (
-    <Layout>
+    <Layout title="Profile">
       {/* User Info Header */}
       <View style={styles.header}>
         <Image
@@ -215,7 +216,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FEF2F2",
     gap: 10,
     marginTop: 8,
-    marginBottom: 60,
   },
   logoutText: {
     fontSize: 16,
