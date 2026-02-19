@@ -7,11 +7,12 @@ import { Fonts } from "@/theme/colors";
 import { Copy, Info, Key, Zap } from "lucide-react-native";
 import React from "react";
 import { Alert, Pressable, StyleSheet } from "react-native";
-import * as Clipboard from 'expo-clipboard';
+import * as Clipboard from "expo-clipboard";
 import { toast } from "sonner-native";
 import { useToast } from "@/components/ui/toast";
 import { Layout } from "@/components/layout/Layout";
 import { ScrollView } from "react-native-gesture-handler";
+import Header from "@/components/shared/inside-header";
 
 export default function AccessScreen() {
   const textMuted = useColor("textMuted");
@@ -31,29 +32,28 @@ export default function AccessScreen() {
     accessCode: "SRN-2468",
   };
 
-const copyToClipboard = async (text: string) => {
-  await Clipboard.setStringAsync(text);
-//   Alert.alert('Copied!', 'Text copied to clipboard');
-//  toast.success("copied")
-showToast()
-};
+  const copyToClipboard = async (text: string) => {
+    await Clipboard.setStringAsync(text);
+    //   Alert.alert('Copied!', 'Text copied to clipboard');
+    //  toast.success("copied")
+    showToast();
+  };
 
   const showToast = () => {
     toast({
-      title: 'Success!',
-      description: 'Capied SRN-2468',
-      variant: 'success',
+      title: "Success!",
+      description: "Capied SRN-2468",
+      variant: "success",
     });
   };
 
   return (
     <Layout title="Access Token">
-      <View style={styles.header}>
-        <Text style={styles.title}>Access Codes</Text>
-        <Text style={[styles.subtitle, { color: textMuted }]}>
-          Your sauna access information
-        </Text>
-      </View>
+      <Header
+        title="Access Codes"
+        subtitle="Your sauna access information"
+        space={8}
+      />
 
       <Card style={[styles.mainCard, { borderColor: border }]}>
         <View style={styles.cardHeader}>
@@ -76,7 +76,10 @@ showToast()
 
           <View style={styles.codeRow}>
             <Text style={styles.codeValue}>{booking.accessCode}</Text>
-            <Pressable style={styles.copyButton} onPress={() => copyToClipboard("Booking ID: 123123")}>
+            <Pressable
+              style={styles.copyButton}
+              onPress={() => copyToClipboard("Booking ID: 123123")}
+            >
               <Copy size={16} color="#fff" />
               <Text style={styles.copyText}>Copy</Text>
             </Pressable>
@@ -96,19 +99,6 @@ showToast()
 }
 
 const styles = StyleSheet.create({
-  header: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    lineHeight: 22,
-  },
   mainCard: {
     gap: 24,
   },
@@ -128,7 +118,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 14,
-    left: -28
+    left: -28,
   },
   statusText: {
     fontSize: 12,

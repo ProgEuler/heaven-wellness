@@ -1,17 +1,17 @@
+import { Layout } from "@/components/layout/Layout";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
 import { router } from "expo-router";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react-native";
+import { ArrowRight } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SelectDateScreen() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -24,12 +24,7 @@ export default function SelectDateScreen() {
   ];
   const background = useColor("background");
   const textMuted = useColor("textMuted");
-  const brownGold = "#9B7C56";
-  const primary = useColor("primary");
-  const secondary = useColor("secondary");
   const border = useColor("border");
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + 60;
 
   const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
 
@@ -66,21 +61,11 @@ export default function SelectDateScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <>
       <BackHeader />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: headerHeight },
-        ]}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>Select Date</Text>
-          <Text style={[styles.subtitle, { color: textMuted }]}>
-            Choose your preferred date
-          </Text>
-        </View>
+      <Layout>
+        <Header title="Select Date" subtitle="Choose your preferred date" />
 
         <Calendar
           hideExtraDays
@@ -202,7 +187,7 @@ export default function SelectDateScreen() {
           </Text>
           <Text style={styles.summaryValue}>{selectedDate}</Text>
         </Card>
-      </ScrollView>
+      </Layout>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
         <Button
@@ -212,35 +197,17 @@ export default function SelectDateScreen() {
               params: { date: selectedDate },
             })
           }
+          disabled={!selectedDate}
         >
           <Text>Continue to Time Selection</Text>
           <ArrowRight size={18} />
         </Button>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-  },
-  header: {
-    paddingBottom: 24,
-    paddingTop: 12,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
   calendarCard: {
     padding: 20,
     borderRadius: 24,

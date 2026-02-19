@@ -121,7 +121,7 @@ export default function HomeScreen() {
             onPress={() => router.push("/(tabs)/booking/1")}
           >
             <Text style={styles.viewDetailsText}>View Details</Text>
-            <ChevronRight size={18} color={primary} />
+            <ChevronRight size={18} color={"#6B5D54"} />
           </Button>
         </View>
       </View>
@@ -320,7 +320,7 @@ const createStyles = (
       gap: 8,
     },
     viewDetailsText: {
-      color: primary,
+      color: "#6B5D54",
       fontWeight: "600",
     },
     sectionHeader: {

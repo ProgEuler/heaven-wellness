@@ -1,7 +1,8 @@
+import { Layout } from "@/components/layout/Layout";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
@@ -10,32 +11,21 @@ import { router } from "expo-router";
 import { Calendar, Clock, Users, Zap } from "lucide-react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function ConfirmationScreen() {
-  const background = useColor("background");
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
   const lightBeige = "#F8F5F2";
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + 60;
 
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <>
       <BackHeader />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: headerHeight },
-        ]}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>Confirm Booking</Text>
-          <Text style={[styles.subtitle, { color: textMuted }]}>
-            Review your reservation details
-          </Text>
-        </View>
+      <Layout>
+        <Header
+          title="Confirm Booking"
+          subtitle="Review your reservation details"
+        />
 
         <Card style={styles.summaryCard}>
           <Text style={styles.serviceName}>Private Sauna</Text>
@@ -111,51 +101,27 @@ export default function ConfirmationScreen() {
             confirmation. It will be available in your bookings.
           </Text>
         </Card>
-      </ScrollView>
+      </Layout>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
-        <Button
-          style={styles.payButton}
-          onPress={() => router.replace("/(tabs)/(home)")}
-        >
-          <Text style={styles.buttonText}>Confirm & Pay €89.00</Text>
+        <Button onPress={() => router.replace("/(tabs)/(home)")}>
+          Confirm & Pay €89.00
         </Button>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-  },
-  header: {
-    paddingBottom: 24,
-    paddingTop: 12,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
   summaryCard: {
     padding: 24,
     borderRadius: 24,
     gap: 20,
-    marginBottom: 20,
   },
   serviceName: {
     fontSize: 20,
     fontWeight: "700",
     fontFamily: Fonts.serif,
-    marginBottom: 4,
   },
   detailRow: {
     flexDirection: "row",
@@ -176,7 +142,6 @@ const styles = StyleSheet.create({
   paymentCard: {
     padding: 24,
     borderRadius: 24,
-    marginBottom: 20,
   },
   paymentHeader: {
     marginBottom: 16,

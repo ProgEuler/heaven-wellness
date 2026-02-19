@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { ScreenView } from "@/components/layout/screen-view";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
@@ -19,6 +20,7 @@ import {
   Star,
   User,
   Crown,
+  Thermometer,
 } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Switch } from "react-native";
@@ -82,6 +84,21 @@ export default function ProfileScreen() {
               style={{ transform: [{ scale: 0.8 }] }}
             />
           </View>
+
+          {/* theme toggle */}
+          {/* <View style={styles.menuItem}>
+            <View style={styles.iconCircle}>
+              <Thermometer size={20} color={brownGold} strokeWidth={1.5} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.menuLabel}>Theme</Text>
+              <Text style={{ color: textMuted, fontSize: 14 }}>
+                Booking reminders & updates
+              </Text>
+            </View>
+            <ModeToggle />
+          </View> */}
+
           <View style={styles.separator} />
           <MenuItem
             icon={Crown}

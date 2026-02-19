@@ -1,56 +1,33 @@
+import { Layout } from "@/components/layout/Layout";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
+import { TIME_SLOTS } from "@/utils/constants";
 import { router, useLocalSearchParams } from "expo-router";
-import { Clock, ArrowRight, TimerResetIcon } from "lucide-react-native";
+import { Clock, ArrowRight } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const TIME_SLOTS = [
-  "8:00 AM",
-  "9:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "1:00 PM",
-  "2:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-  "5:00 PM",
-  "6:00 PM",
-];
 
 export default function SelectTimeScreen() {
   const { date } = useLocalSearchParams();
   const [selectedTime, setSelectedTime] = useState("12:00 PM");
-  const background = useColor("background");
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + 60;
 
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <>
       <BackHeader />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: headerHeight },
-        ]}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>Select Time</Text>
-          <Text style={[styles.subtitle, { color: textMuted }]}>
-            Choose your preferred time slot
-          </Text>
-        </View>
+      <Layout>
+        <Header
+          title="Select Time"
+          subtitle="Choose your preferred time slot"
+        />
 
         <Card style={styles.dateInfoCard}>
           <Text variant="caption" style={{ color: textMuted }}>
@@ -93,11 +70,10 @@ export default function SelectTimeScreen() {
           </Text>
           <Text style={styles.summaryValue}>{selectedTime}</Text>
         </Card>
-      </ScrollView>
+      </Layout>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
         <Button
-          style={styles.continueButton}
           onPress={() =>
             router.push({
               pathname: "/(booking)/guests",
@@ -108,34 +84,15 @@ export default function SelectTimeScreen() {
             })
           }
         >
-          <Text style={styles.buttonText}>Continue to Guests</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Continue to Guests</Text>
+          <ArrowRight size={18} color="#000" />
         </Button>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-  },
-  header: {
-    paddingBottom: 24,
-    paddingTop: 12,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
   dateInfoCard: {
     padding: 16,
     borderRadius: 12,

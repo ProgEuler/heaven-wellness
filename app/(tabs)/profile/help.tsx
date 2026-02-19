@@ -1,35 +1,25 @@
-import { ScreenView } from "@/components/layout/screen-view";
 import { FAQAccordion } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { BackHeader } from "@/components/shared/booking-header";
-import FAQ from "@/constants";
-import { useColor } from "@/hooks/useColor";
 import { Fonts } from "@/theme/colors";
 import { openContact } from "@/utils/contact";
-import {
-  HelpCircle,
-  Mail,
-  MessageCircle,
-  Phone,
-} from "lucide-react-native";
+import { HelpCircle, Mail, MessageCircle, Phone } from "lucide-react-native";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Layout } from "@/components/layout/Layout";
 import Header from "@/components/shared/inside-header";
+import { FAQ } from "@/utils/constants";
 
 export default function HelpSupportScreen() {
-  const insets = useSafeAreaInsets();
-  const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
 
   return (
-   <>
-   <BackHeader />
+    <>
+      <BackHeader />
       <Layout>
-         <Header title="Help & Support" subtitle="Effective Date: Oct 1, 2025" />
+        <Header title="Help & Support" subtitle="Effective Date: Oct 1, 2025" />
 
         <Card style={[styles.heroCard, { backgroundColor: brownGold }]}>
           <HelpCircle size={32} color="white" opacity={0.8} />
@@ -71,16 +61,13 @@ export default function HelpSupportScreen() {
           <FAQAccordion data={FAQ} />
         </View>
       </Layout>
-  </>
+    </>
   );
 }
 
 function ContactMethod({ icon: IconComp, label, color, iconColor, type }: any) {
   return (
-    <Pressable
-      style={styles.contactItem}
-      onPress={() => openContact(type)}
-    >
+    <Pressable style={styles.contactItem} onPress={() => openContact(type)}>
       <Card style={styles.contactCard}>
         <View style={[styles.contactIcon, { backgroundColor: color }]}>
           <IconComp size={24} color={iconColor} />

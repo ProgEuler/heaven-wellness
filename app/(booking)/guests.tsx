@@ -1,7 +1,8 @@
+import { Layout } from "@/components/layout/Layout";
 import { BackHeader } from "@/components/shared/booking-header";
+import Header from "@/components/shared/inside-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ScrollView } from "@/components/ui/scroll-view";
 import { Text } from "@/components/ui/text";
 import { View } from "@/components/ui/view";
 import { useColor } from "@/hooks/useColor";
@@ -10,33 +11,22 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Minus, Plus, Users, ArrowRight } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function GuestsScreen() {
   const { date, time } = useLocalSearchParams();
   const [guests, setGuests] = useState(2);
-  const background = useColor("background");
   const textMuted = useColor("textMuted");
   const brownGold = "#9B7C56";
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + 60;
 
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <>
       <BackHeader />
 
-      <ScrollView
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingTop: headerHeight },
-        ]}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>Number of Guests</Text>
-          <Text style={[styles.subtitle, { color: textMuted }]}>
-            How many people will attend?
-          </Text>
-        </View>
+      <Layout>
+        <Header
+          title="Number of Guests"
+          subtitle="How many people will attend?"
+        />
 
         <Card style={styles.summaryCard}>
           <View style={styles.summaryRow}>
@@ -118,45 +108,25 @@ export default function GuestsScreen() {
             ))}
           </View>
         </View>
-      </ScrollView>
+      </Layout>
 
       <View style={[styles.footer, { borderTopColor: useColor("border") }]}>
         <Button
-          style={styles.continueButton}
           onPress={() => router.push("/(booking)/information")}
         >
-          <Text style={styles.buttonText}>Continue to Confirmation</Text>
-          <ArrowRight size={18} color="white" />
+          <Text>Continue to Confirmation</Text>
+          <ArrowRight size={18} color="#000" />
         </Button>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-  },
-  header: {
-    paddingBottom: 24,
-    paddingTop: 12,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "700",
-    fontFamily: Fonts.serif,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
   summaryCard: {
     padding: 16,
     borderRadius: 16,
-    marginBottom: 24,
+   //  marginBottom: 24,
     gap: 12,
   },
   summaryRow: {
@@ -244,10 +214,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 8,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "700",
   },
 });

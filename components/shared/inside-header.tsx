@@ -3,16 +3,16 @@ import React from "react";
 import { Fonts } from "@/theme/colors";
 import { useColor } from "@/hooks/useColor";
 
-export default function Header({
-  title,
-  subtitle,
-}: {
+interface HeaderProps {
   title: string;
   subtitle: string;
-}) {
-   const textMuted = useColor("textMuted")
+  space?: number;
+}
+
+export default function Header({ title, subtitle, space = 46 }: HeaderProps) {
+  const textMuted = useColor("textMuted");
   return (
-    <View style={{ marginVertical: 12 }}>
+    <View style={{ marginVertical: 12, marginTop: space }}>
       <Text style={styles.title}>{title}</Text>
       <Text style={[styles.subtitle, { color: textMuted }]}>{subtitle}</Text>
     </View>
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     fontFamily: Fonts.serif,
-    marginTop: 30,
   },
   subtitle: {
     fontSize: 16,
